@@ -2,14 +2,23 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
 }
+
 .app-name {
-  font-size: 24px;
+  font-size: 22px;
 }
 .yield {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 .input-wrapper {
   display: flex;
@@ -23,21 +32,12 @@
   background-color: transparent;
   border: none;
 }
-.home-icon {
-  fill: var(--bg-cream);
-  transition: fill 400ms ease-in-out;
-  width: 24px;
-  height: 24px;
-}
-
-.home-icon:hover {
-  fill: var(--accent-light);
-}
 
 .form-input {
   padding: 12px 20px;
   border-radius: 8px;
   border: 1px var(--accent-light) solid;
+  background-color: var(--bg-cream);
 }
 .form-input:focus {
   outline: none;
@@ -46,25 +46,113 @@
   font-weight: 500;
 }
 
+.ingredient-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.ingredient-input-wrapper {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  align-items: center;
+}
+
+.ingr-name {
+  border-radius: 8px 0 0 8px;
+  width: 100%;
+}
+
+.ingr-qty {
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  width: 100%;
+}
+
+.select {
+  margin: 0 0 0 24px;
+}
+
+.ingr-label {
+  font-weight: 600;
+  display: block;
+  text-align: start;
+}
+
+.add-new-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  align-self: center;
+}
+
+.add-new-btn .icon:hover {
+  fill: var(--bg-cream);
+}
 @media screen and (min-width: 0) and (max-width: 320px) {
   .app-name {
     font-size: 18px;
   }
 
-  .home-icon {
+  .icon {
     width: 18px;
     height: 18px;
   }
-}
 
+  .ingredients {
+    flex-direction: column;
+  }
+  .ingredient-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .ingredient-input-wrapper {
+    flex-direction: column;
+    gap: 14px;
+    align-items: unset;
+  }
+
+  .form-input {
+    width: 100%;
+  }
+  .ingr-name {
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  .ingr-qty {
+    border-left: 1px solid var(--accent-light);
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  .select {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .add-new-btn {
+    width: 100%;
+  }
+}
 @media screen and (min-width: 768px) {
   .yield {
     flex-direction: row;
-    justify-content: center;
   }
 
   .result-btn {
     width: 250px;
     align-self: center;
+  }
+
+  .input-wrapper {
+    width: 100%;
   }
 }

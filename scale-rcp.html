@@ -21,7 +21,7 @@
   <body>
     <header id="header" class="header container">
       <a class="home-btn" href="./index.html">
-        <svg class="home-icon">
+        <svg class="icon">
           <use href="./images/icons.svg#icon-home"></use>
         </svg>
       </a>
@@ -34,43 +34,62 @@
         <div class="section-wrapper container">
           <h2 class="heading">Recipe Scaler</h2>
 
-          <form name="yield-input" class="yield">
-            <div class="input-wrapper">
-              <label for="base" class="input-label">Base yield</label>
-              <input class="form-input" name="base" id="base" type="number" />
+          <form name="yield-ingredients" class="form">
+            <div class="yield">
+              <div class="input-wrapper">
+                <label for="base" class="input-label">Base yield</label>
+                <input class="form-input" name="base" id="base" type="number" />
+              </div>
+
+              <div class="input-wrapper">
+                <label for="desired" class="input-label">Desired yield</label>
+                <input
+                  class="form-input"
+                  name="desired"
+                  id="desired"
+                  type="number"
+                />
+              </div>
             </div>
 
-            <div class="input-wrapper">
-              <label for="desired" class="input-label">Desired yield</label>
-              <input
-                class="form-input"
-                name="desired"
-                id="desired"
-                type="number"
-              />
-            </div>
-          </form>
+            <p class="descr">Input your ingredients and their quantity</p>
 
-          <form class="ingredients" name="ingredients">
-            <label for="ingredient-name" class="input-label"></label>
-            <input
-              class="form-input"
-              name="ingredient-name"
-              id="ingredient-name"
-              type="text"
-              placeholder="ingredient name"
-            />
-            <label for="ingredient-qty" class="input-label"></label>
-            <input
-              class="form-input"
-              name="ingredient-qty"
-              id="ingredient-qty"
-              type="number"
-              placeholder="ingredient quantity"
-            />
-            <select name="" id="" class="input-label">
-              sfsd
-            </select>
+            <div class="ingredient-group">
+              <p class="ingr-label">Ingredient</p>
+              <div class="ingredient-input-wrapper">
+                <label
+                  ><input
+                    class="form-input ingr-name"
+                    name="ingredient-name"
+                    type="text"
+                    placeholder="name"
+                /></label>
+
+                <label
+                  ><input
+                    class="form-input ingr-qty"
+                    name="ingredient-qty"
+                    type="number"
+                    placeholder="quantity"
+                /></label>
+
+                <select name="measures" class="form-input select">
+                  <option value="g">g</option>
+                  <option value="ml">ml</option>
+                  <option value="oz">oz</option>
+                  <option value="fl-oz">fl oz</option>
+                  <option value="tsp">tsp</option>
+                  <option value="tbsp">tbsp</option>
+                  <option value="cup">cup</option>
+                  <option value="pcs">pcs</option>
+                </select>
+              </div>
+            </div>
+            <button type="button" class="button add-new-btn">
+              <svg class="icon">
+                <use href="./images/icons.svg#icon-plus"></use>
+              </svg>
+            </button>
           </form>
 
           <button type="submit" class="result-btn button">Scale Recipe</button>

@@ -59,7 +59,6 @@ img {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
   justify-content: center;
 }
 
@@ -91,8 +90,6 @@ button {
 .header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: var(--accent-dark);
@@ -105,6 +102,17 @@ button {
   font-weight: 600;
   text-align: center;
   color: var(--bg-cream);
+}
+
+.icon {
+  fill: var(--bg-cream);
+  transition: fill 400ms ease-in-out;
+  width: 24px;
+  height: 24px;
+}
+
+.icon:hover {
+  fill: var(--accent-light);
 }
 
 @media screen and (min-width: 768px) {
