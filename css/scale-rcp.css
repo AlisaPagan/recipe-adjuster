@@ -1,0 +1,70 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.app-name {
+  font-size: 24px;
+}
+.yield {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.input-label {
+  margin-bottom: 10px;
+}
+
+.home-btn {
+  background-color: transparent;
+  border: none;
+}
+.home-icon {
+  fill: var(--bg-cream);
+  transition: fill 400ms ease-in-out;
+  width: 24px;
+  height: 24px;
+}
+
+.home-icon:hover {
+  fill: var(--accent-light);
+}
+
+.form-input {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px var(--accent-light) solid;
+}
+.form-input:focus {
+  outline: none;
+}
+.result-btn {
+  font-weight: 500;
+}
+
+@media screen and (min-width: 0) and (max-width: 320px) {
+  .app-name {
+    font-size: 18px;
+  }
+
+  .home-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .yield {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .result-btn {
+    width: 250px;
+    align-self: center;
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/scale-rcp.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Recipe Scaler</title>
+  </head>
+  <body>
+    <header id="header" class="header container">
+      <a class="home-btn" href="./index.html">
+        <svg class="home-icon">
+          <use href="./images/icons.svg#icon-home"></use>
+        </svg>
+      </a>
+
+      <h2 class="app-name">Baking Adjustment Helper</h2>
+    </header>
+
+    <main>
+      <section class="recipe-scale section">
+        <div class="section-wrapper container">
+          <h2 class="heading">Recipe Scaler</h2>
+
+          <form name="yield-input" class="yield">
+            <div class="input-wrapper">
+              <label for="base" class="input-label">Base yield</label>
+              <input class="form-input" name="base" id="base" type="number" />
+            </div>
+
+            <div class="input-wrapper">
+              <label for="desired" class="input-label">Desired yield</label>
+              <input
+                class="form-input"
+                name="desired"
+                id="desired"
+                type="number"
+              />
+            </div>
+          </form>
+
+          <form class="ingredients" name="ingredients">
+            <label for="ingredient-name" class="input-label"></label>
+            <input
+              class="form-input"
+              name="ingredient-name"
+              id="ingredient-name"
+              type="text"
+              placeholder="ingredient name"
+            />
+            <label for="ingredient-qty" class="input-label"></label>
+            <input
+              class="form-input"
+              name="ingredient-qty"
+              id="ingredient-qty"
+              type="number"
+              placeholder="ingredient quantity"
+            />
+            <select name="" id="" class="input-label">
+              sfsd
+            </select>
+          </form>
+
+          <button type="submit" class="result-btn button">Scale Recipe</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
