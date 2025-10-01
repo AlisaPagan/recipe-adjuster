@@ -7,10 +7,14 @@ const inputContainer = document.querySelector(".ingredient-input-wrapper");
 const addIngredient = document.querySelector(".add-new-btn");
 const scaleRecipe = document.querySelector(".result-btn");
 const clearAll = document.querySelector(".clear-btn");
+const delButton = document.querySelector(".del-btn");
+
+updateDeleteButtons();
 
 // =====ADD NEW INGREDIENT LINE======
 
 addIngredient.addEventListener("click", addNewIngredient);
+delButton.addEventListener("click", removeIngredient);
 
 function addNewIngredient(event) {
   event.preventDefault();
@@ -30,30 +34,12 @@ function addNewIngredient(event) {
   });
 
   // =====delete button======
-  const inputContainer = newIngredientInput.querySelector(
-    ".ingredient-input-wrapper"
-  );
-
-  const deleteButton = document.createElement("button");
-  deleteButton.classList.add("del-btn", "button");
-
-  const delIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  delIcon.classList.add("icon");
-  const delIconLink = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "use"
-  );
-
-  delIconLink.setAttribute("href", "../images/icons.svg#icon-cross");
-
-  delIcon.append(delIconLink);
-  deleteButton.append(delIcon);
-
-  // =====add to container======
-
-  inputContainer.insertAdjacentElement("beforeend", deleteButton);
+  const deleteButton = newIngredientInput.querySelector(".del-btn");
+  deleteButton.addEventListener("click", removeIngredient);
 
   addIngredient.insertAdjacentElement("beforebegin", newIngredientInput);
+
+  updateDeleteButtons();
 }
 
 // =====clear all inputs======
@@ -69,4 +55,23 @@ function clearAllInputs() {
       input.selectedIndex = 0;
     }
   });
+}
+// =====REMOVE INGREDIENT LINE======
+function removeIngredient(event) {
+  event.preventDefault();
+  const ingrInputs = event.target.closest(".ingredient-group");
+  ingrInputs.remove();
+  updateDeleteButtons();
+}
+
+// =====UPDATE DEL BUTTON======
+function updateDeleteButtons() {
+  const ingrInputs = document.querySelectorAll(".ingredient-group");
+  const deleteButtons = document.querySelectorAll(".del-btn");
+
+  if (ingrInputs.length === 1) {
+    deleteButtons.forEach((button) => (button.disabled = true));
+  } else if (ingrInputs.length >= 2) {
+    deleteButtons.forEach((button) => (button.disabled = false));
+  }
 }

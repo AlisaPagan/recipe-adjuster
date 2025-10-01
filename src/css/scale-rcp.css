@@ -95,11 +95,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--accent-dark);
   width: 50px;
   height: 50px;
   padding: 15px;
   align-self: center;
   margin: 0 0 0 24px;
+}
+.del-btn:disabled {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.del-btn:disabled:hover {
+  box-shadow: none;
 }
 
 .add-new-btn .icon:hover,

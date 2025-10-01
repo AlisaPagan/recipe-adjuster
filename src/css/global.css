@@ -5,6 +5,7 @@
   --accent-light: #f2aa6b;
   --accent-hover: #d96725;
   --white: #ffffff;
+  --disabled: #666373;
 }
 
 * {
