@@ -19,7 +19,7 @@ body {
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1.5;
-  background-color: var(--text-brown);
+  color: var(--text-brown);
   background-color: var(--bg-cream);
 }
 

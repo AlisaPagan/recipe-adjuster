@@ -42,7 +42,8 @@
 .form-input:focus {
   outline: none;
 }
-.result-btn {
+.result-btn,
+.clear-btn {
   font-weight: 500;
 }
 
@@ -90,10 +91,41 @@
   padding: 15px;
   align-self: center;
 }
+.del-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  align-self: center;
+  margin: 0 0 0 24px;
+}
 
-.add-new-btn .icon:hover {
+.add-new-btn .icon:hover,
+.del-btn .icon:hover {
   fill: var(--bg-cream);
 }
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 100%;
+}
+
+.result-btn,
+.clear-btn {
+  width: 100%;
+}
+
+.clear-btn {
+  background-color: transparent;
+  border: 1px solid var(--accent-hover);
+  color: var(--accent-hover);
+}
+
 @media screen and (min-width: 0) and (max-width: 320px) {
   .app-name {
     font-size: 18px;
@@ -141,18 +173,34 @@
   .add-new-btn {
     width: 100%;
   }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 100%;
+  }
+
+  .result-btn,
+  .clear-btn {
+    width: 100%;
+  }
 }
 @media screen and (min-width: 768px) {
   .yield {
     flex-direction: row;
   }
 
-  .result-btn {
-    width: 250px;
-    align-self: center;
-  }
-
   .input-wrapper {
     width: 100%;
+  }
+
+  .action-buttons {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .result-btn,
+  .clear-btn {
+    width: 50%;
   }
 }

@@ -38,7 +38,13 @@
             <div class="yield">
               <div class="input-wrapper">
                 <label for="base" class="input-label">Base yield</label>
-                <input class="form-input" name="base" id="base" type="number" />
+                <input
+                  class="form-input"
+                  name="base"
+                  id="base"
+                  type="number"
+                  placeholder="portion size"
+                />
               </div>
 
               <div class="input-wrapper">
@@ -48,11 +54,12 @@
                   name="desired"
                   id="desired"
                   type="number"
+                  placeholder="portion size"
                 />
               </div>
             </div>
 
-            <p class="descr">Input your ingredients and their quantity</p>
+            <p class="descr">Input your ingredients and their amounts</p>
 
             <div class="ingredient-group">
               <p class="ingr-label">Ingredient</p>
@@ -70,7 +77,7 @@
                     class="form-input ingr-qty"
                     name="ingredient-qty"
                     type="number"
-                    placeholder="quantity"
+                    placeholder="amount"
                 /></label>
 
                 <select name="measures" class="form-input select">
@@ -92,7 +99,12 @@
             </button>
           </form>
 
-          <button type="submit" class="result-btn button">Scale Recipe</button>
+          <div class="action-buttons">
+            <button type="submit" class="result-btn button">
+              Scale Recipe
+            </button>
+            <button type="button" class="clear-btn button">Clear All</button>
+          </div>
         </div>
       </section>
     </main>
