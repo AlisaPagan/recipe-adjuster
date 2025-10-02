@@ -37,32 +37,45 @@
           <form name="yield-ingredients" class="form">
             <div class="yield">
               <div class="input-wrapper">
-                <label for="base" class="input-label">Base yield</label>
+                <label for="base" class="input-label"
+                  >Base yield <span class="required">*</span></label
+                >
                 <input
                   class="form-input"
                   name="base"
                   id="base"
                   type="number"
                   placeholder="portion size"
+                  required
+                  min="0"
+                  step="any"
                 />
               </div>
 
               <div class="input-wrapper">
-                <label for="desired" class="input-label">Desired yield</label>
+                <label for="desired" class="input-label"
+                  >Desired yield <span class="required">*</span></label
+                >
                 <input
                   class="form-input"
                   name="desired"
                   id="desired"
                   type="number"
                   placeholder="portion size"
+                  required
+                  min="0"
+                  step="any"
                 />
               </div>
             </div>
 
-            <p class="descr">Input your ingredients and their amounts</p>
+            <p class="descr">
+              Input your ingredients and their amounts
+              <strong>(all fileds must be filled out)</strong>
+            </p>
 
             <div class="ingredient-group">
-              <p class="ingr-label">Ingredient</p>
+              <p class="ingr-label">Ingredient 1</p>
               <div class="ingredient-input-wrapper">
                 <label
                   ><input
@@ -70,6 +83,9 @@
                     name="ingredient-name"
                     type="text"
                     placeholder="name"
+                    required
+                    required
+                    pattern="^[A-Za-z\s]+$"
                 /></label>
 
                 <label
@@ -78,6 +94,9 @@
                     name="ingredient-qty"
                     type="number"
                     placeholder="amount"
+                    required
+                    min="0"
+                    step="any"
                 /></label>
 
                 <select name="measures" class="form-input select">

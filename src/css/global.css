@@ -6,6 +6,7 @@
   --accent-hover: #d96725;
   --white: #ffffff;
   --disabled: #666373;
+  --required: #f2826b;
 }
 
 * {
@@ -77,6 +78,7 @@ button {
   color: var(--text-brown);
   padding: 12px 20px;
   border-radius: 8px;
+  height: 50px;
   border: none;
   transition: color 450ms ease-in-out, background-color 450ms ease-in-out,
     box-shadow 450ms ease-in-out;
@@ -108,8 +110,8 @@ button {
 .icon {
   fill: var(--bg-cream);
   transition: fill 400ms ease-in-out;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
 }
 
 .icon:hover {
