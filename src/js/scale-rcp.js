@@ -5,12 +5,15 @@ const ingredientInput = document.querySelector(".ingredient-group");
 const inputContainer = document.querySelector(".ingredient-input-wrapper");
 
 const addIngredient = document.querySelector(".add-new-btn");
-const scaleRecipe = document.querySelector(".result-btn");
+const scaleRecipeButton = document.querySelector(".result-btn");
 const clearAll = document.querySelector(".clear-btn");
 const delButton = document.querySelector(".del-btn");
 
 const numInputs = document.querySelectorAll('input[type="number"]');
 const textInput = document.querySelector('input[type="text"]');
+
+const placeholderText = document.querySelector(".empty-card-message");
+const updatedRecipeList = document.querySelector(".updated-recipe-list");
 
 numInputs.forEach((input) =>
   input.addEventListener("keydown", validateNumInputs)
@@ -71,6 +74,10 @@ function clearAllInputs() {
       input.selectedIndex = 0;
     }
   });
+
+  const updatedListItem = document.querySelectorAll(".updated-ingredient");
+  updatedListItem.forEach((listItem) => listItem.remove());
+  updatedRecipeList.append(placeholderText);
 }
 
 // =====REMOVE INGREDIENT LINE======
@@ -126,5 +133,39 @@ function updateIngredientLabels() {
   ingredientGroups.forEach((group, index) => {
     const label = group.querySelector(".ingr-label");
     label.textContent = "Ingredient " + (index + 1);
+  });
+}
+
+// =====RECIPE SCALING======
+
+scaleRecipeButton.addEventListener("click", scaleRecipe);
+
+function scaleRecipe(event) {
+  event.preventDefault();
+  if (!baseQty.value || !desiredQty.value) {
+    return;
+  }
+
+  const ingredientGroups = document.querySelectorAll(".ingredient-group");
+  let scaleFactor = Number(desiredQty.value) / Number(baseQty.value);
+
+  placeholderText.remove();
+  ingredientGroups.forEach((group) => {
+    const name = group.querySelector(".ingr-name").value;
+    const qty = group.querySelector(".ingr-qty").value;
+    const unit = group.querySelector(".select").value;
+
+    if (!name || !qty) {
+      return;
+    }
+
+    const scaledQty = Number(qty) * scaleFactor;
+    const roundedQty = Math.round(scaledQty * 100) / 100;
+
+    const updatedListItem = document.createElement("li");
+    updatedListItem.classList.add("updated-ingredient");
+    updatedListItem.textContent = `${name}: ${roundedQty} ${unit}`;
+
+    updatedRecipeList.append(updatedListItem);
   });
 }

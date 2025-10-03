@@ -30,108 +30,122 @@
     </header>
 
     <main>
-      <section class="recipe-scale section">
-        <div class="section-wrapper container">
-          <h2 class="heading">Recipe Scaler</h2>
+      <div class="sections-wrapper">
+        <section class="recipe-scale section">
+          <div class="section-wrapper container">
+            <h2 class="heading">Recipe Scaler</h2>
 
-          <form name="yield-ingredients" class="form">
-            <div class="yield">
-              <div class="input-wrapper">
-                <label for="base" class="input-label"
-                  >Base yield <span class="required">*</span></label
-                >
-                <input
-                  class="form-input"
-                  name="base"
-                  id="base"
-                  type="number"
-                  placeholder="portion size"
-                  required
-                  min="0"
-                  step="any"
-                />
-              </div>
-
-              <div class="input-wrapper">
-                <label for="desired" class="input-label"
-                  >Desired yield <span class="required">*</span></label
-                >
-                <input
-                  class="form-input"
-                  name="desired"
-                  id="desired"
-                  type="number"
-                  placeholder="portion size"
-                  required
-                  min="0"
-                  step="any"
-                />
-              </div>
-            </div>
-
-            <p class="descr">
-              Input your ingredients and their amounts
-              <strong>(all fileds must be filled out)</strong>
-            </p>
-
-            <div class="ingredient-group">
-              <p class="ingr-label">Ingredient 1</p>
-              <div class="ingredient-input-wrapper">
-                <label
-                  ><input
-                    class="form-input ingr-name"
-                    name="ingredient-name"
-                    type="text"
-                    placeholder="name"
-                    required
-                    required
-                    pattern="^[A-Za-z\s]+$"
-                /></label>
-
-                <label
-                  ><input
-                    class="form-input ingr-qty"
-                    name="ingredient-qty"
+            <form name="yield-ingredients" class="form">
+              <div class="yield">
+                <div class="input-wrapper">
+                  <label for="base" class="input-label"
+                    >Base yield <span class="required">*</span></label
+                  >
+                  <input
+                    class="form-input"
+                    name="base"
+                    id="base"
                     type="number"
-                    placeholder="amount"
+                    placeholder="portion size"
                     required
                     min="0"
                     step="any"
-                /></label>
+                  />
+                </div>
 
-                <select name="measures" class="form-input select">
-                  <option value="g">g</option>
-                  <option value="ml">ml</option>
-                  <option value="oz">oz</option>
-                  <option value="fl-oz">fl oz</option>
-                  <option value="tsp">tsp</option>
-                  <option value="tbsp">tbsp</option>
-                  <option value="cup">cup</option>
-                  <option value="pcs">pcs</option>
-                </select>
-
-                <button type="button" class="button del-btn">
-                  <svg class="icon">
-                    <use href="../images/icons.svg#icon-cross"></use>
-                  </svg>
-                </button>
+                <div class="input-wrapper">
+                  <label for="desired" class="input-label"
+                    >Desired yield <span class="required">*</span></label
+                  >
+                  <input
+                    class="form-input"
+                    name="desired"
+                    id="desired"
+                    type="number"
+                    placeholder="portion size"
+                    required
+                    min="0"
+                    step="any"
+                  />
+                </div>
               </div>
-            </div>
-            <button type="button" class="button add-new-btn">
-              <svg class="icon">
-                <use href="../images/icons.svg#icon-plus"></use>
-              </svg>
-            </button>
-          </form>
 
-          <div class="action-buttons">
-            <button type="submit" class="result-btn button">
-              Scale Recipe
-            </button>
-            <button type="button" class="clear-btn button">Clear All</button>
+              <p class="descr">
+                Input your ingredients and their amounts
+                <strong>(all fileds must be filled out)</strong>
+              </p>
+
+              <div class="ingredient-group">
+                <p class="ingr-label">Ingredient 1</p>
+                <div class="ingredient-input-wrapper">
+                  <label
+                    ><input
+                      class="form-input ingr-name"
+                      name="ingredient-name"
+                      type="text"
+                      placeholder="name"
+                      required
+                      required
+                      pattern="^[A-Za-z\s]+$"
+                  /></label>
+
+                  <label
+                    ><input
+                      class="form-input ingr-qty"
+                      name="ingredient-qty"
+                      type="number"
+                      placeholder="amount"
+                      required
+                      min="0"
+                      step="any"
+                  /></label>
+
+                  <select name="measures" class="form-input select">
+                    <option value="g">g</option>
+                    <option value="ml">ml</option>
+                    <option value="oz">oz</option>
+                    <option value="fl-oz">fl oz</option>
+                    <option value="tsp">tsp</option>
+                    <option value="tbsp">tbsp</option>
+                    <option value="cup">cup</option>
+                    <option value="pcs">pcs</option>
+                  </select>
+
+                  <button type="button" class="button del-btn">
+                    <svg class="icon">
+                      <use href="../images/icons.svg#icon-cross"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="button add-new-btn">
+                <svg class="icon">
+                  <use href="../images/icons.svg#icon-plus"></use>
+                </svg>
+              </button>
+            </form>
+
+            <div class="action-buttons">
+              <button type="submit" class="result-btn button">
+                Scale Recipe
+              </button>
+              <button type="button" class="clear-btn button">Clear All</button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section class="updated-recipe-card section">
+          <div class="container">
+            <ul class="updated-recipe-list">
+              <h3 class="list-heading">Your Updated Recipe</h3>
+              <p class="empty-card-message">
+                Input your ingredients and amounts and click "Scale Recipe" to
+                see your updated recipe.
+              </p>
+            </ul>
+          </div>
+        </section>
+      </div>
     </main>
 
     <script type="module" src="../js/main.js"></script>
