@@ -77,6 +77,8 @@ function clearAllInputs() {
 
   const updatedListItem = document.querySelectorAll(".updated-ingredient");
   updatedListItem.forEach((listItem) => listItem.remove());
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((msg) => msg.remove());
   updatedRecipeList.append(placeholderText);
 }
 
@@ -142,7 +144,27 @@ scaleRecipeButton.addEventListener("click", scaleRecipe);
 
 function scaleRecipe(event) {
   event.preventDefault();
+  const updatedListItem = document.querySelectorAll(".updated-ingredient");
+  updatedListItem.forEach((ingredient) => ingredient.remove());
+
+  document.querySelectorAll(".error-message").forEach((msg) => msg.remove());
+
+  const name = document.querySelector(".ingr-name").value;
+  const qty = document.querySelector(".ingr-qty").value;
+
   if (!baseQty.value || !desiredQty.value) {
+    placeholderText.remove();
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("error-message");
+    errorMessage.textContent = "Please input your base and desired yield!";
+    updatedRecipeList.append(errorMessage);
+    return;
+  } else if (!name || !qty) {
+    placeholderText.remove();
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("error-message");
+    errorMessage.textContent = "Please input names and quantity of ingredients";
+    updatedRecipeList.append(errorMessage);
     return;
   }
 

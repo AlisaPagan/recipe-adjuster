@@ -47,7 +47,7 @@
 }
 
 .form-input:focus {
-  outline: none;
+  outline: 0.5px solid var(--accent-dark);
 }
 .result-btn,
 .clear-btn {
