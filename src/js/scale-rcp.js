@@ -1,30 +1,33 @@
+// ===== GLOBAL ELEMENTS =====
 const baseQty = document.querySelector("#base");
 const desiredQty = document.querySelector("#desired");
 
-const ingredientInput = document.querySelector(".ingredient-group");
-const inputContainer = document.querySelector(".ingredient-input-wrapper");
-
-const addIngredient = document.querySelector(".add-new-btn");
-const scaleRecipeButton = document.querySelector(".result-btn");
-const clearAll = document.querySelector(".clear-btn");
-const delButton = document.querySelector(".del-btn");
+const addIngredientBtn = document.querySelectorAll(".add-new-btn");
+const scaleRecipeButton = document.querySelectorAll(".result-btn");
+const clearAllBtn = document.querySelectorAll(".clear-btn");
+const delButton = document.querySelectorAll(".del-btn");
 
 const numInputs = document.querySelectorAll('input[type="number"]');
-const textInput = document.querySelector('input[type="text"]');
+const textInputs = document.querySelectorAll('input[type="text"]');
 
 const placeholderText = document.querySelector(".empty-card-message");
 const updatedRecipeList = document.querySelector(".updated-recipe-list");
 
 const tabButtons = document.querySelectorAll(".tablink");
-const tabContent = document.querySelectorAll(".tabcontent");
+const tabSections = document.querySelectorAll(".recipe-scale");
 
+// ===== INPUT VALIDATION LISTENERS =====
 numInputs.forEach((input) =>
   input.addEventListener("keydown", validateNumInputs)
 );
-textInput.addEventListener("input", validateTextInput);
+textInputs.forEach((input) =>
+  input.addEventListener("input", validateTextInput)
+);
 
+// ===== INITIALIZE =====
 updateDeleteButtons();
-// =====SWITCH TABS======
+
+// ===== SWITCH TABS =====
 tabButtons.forEach((button) => {
   button.addEventListener("click", switchTabs);
 });
@@ -33,168 +36,175 @@ function switchTabs(event) {
   const clickedBtn = event.currentTarget;
   const tabName = clickedBtn.dataset.tab;
 
-  tabContent.forEach((tab) => {
-    tab.classList.remove("active");
-  });
-  tabButtons.forEach((button) => {
-    button.classList.remove("active");
-  });
+  // Remove active state from all
+  tabSections.forEach((tab) => tab.classList.remove("active"));
+  tabButtons.forEach((btn) => btn.classList.remove("active"));
 
+  // Activate clicked tab + its button
   clickedBtn.classList.add("active");
   document.getElementById(tabName).classList.add("active");
+
   updateOutputCard(tabName);
   updateDeleteButtons();
 }
 
-// =====UPDATE OUTPUT DEFAULT======
-
+// ===== UPDATE OUTPUT CARD DEFAULT TEXT =====
 function updateOutputCard(tabName) {
   if (tabName === "key-ingr") {
     placeholderText.textContent =
-      "Input your key ingredient and the original recipe and click ‘Scale Recipe’ to see your updated recipe. Be sure to include the key ingredient in the recipe.";
+      "Input your key ingredient and the original recipe, then click ‘Scale Recipe’ to see your updated recipe. Be sure to include the key ingredient in the recipe.";
   } else if (tabName === "portion") {
     placeholderText.textContent =
-      "Input your ingredients and amounts and click 'Scale Recipe' tosee your updated recipe.";
+      "Input your ingredients and amounts, then click 'Scale Recipe' to see your updated recipe.";
   }
 }
 
-// =====ADD NEW INGREDIENT LINE======
-
-addIngredient.addEventListener("click", addNewIngredient);
-delButton.addEventListener("click", removeIngredient);
+// ===== ADD NEW INGREDIENT LINE =====
+addIngredientBtn.forEach((button) =>
+  button.addEventListener("click", addNewIngredient)
+);
+delButton.forEach((button) =>
+  button.addEventListener("click", removeIngredient)
+);
 
 function addNewIngredient(event) {
   event.preventDefault();
+  const activeTab = event.target.closest(".recipe-scale");
+  const ingredientInput = activeTab.querySelector(".ingredient-group");
+  const addBtn = event.currentTarget;
 
-  // =====clone inputs======
-  let newIngredientInput = ingredientInput.cloneNode(true);
-
-  // =====reset inputs======
+  // Clone + reset
+  const newIngredientInput = ingredientInput.cloneNode(true);
   const inputs = newIngredientInput.querySelectorAll("input, select");
-
   inputs.forEach((input) => {
-    if (input.tagName === "INPUT") {
-      input.value = "";
-    } else if (input.tagName === "SELECT") {
-      input.selectedIndex = 0;
-    }
+    input.value = "";
+    if (input.tagName === "SELECT") input.selectedIndex = 0;
   });
-  // =====validate inputs======
-  const numInputs = newIngredientInput.querySelectorAll('input[type="number"]');
-  const textInput = newIngredientInput.querySelector('input[type="text"]');
 
+  // Add validation again
+  const numInputs = newIngredientInput.querySelectorAll('input[type="number"]');
+  const textInputs = newIngredientInput.querySelectorAll('input[type="text"]');
   numInputs.forEach((input) =>
     input.addEventListener("keydown", validateNumInputs)
   );
-  textInput.addEventListener("input", validateTextInput);
+  textInputs.forEach((input) =>
+    input.addEventListener("input", validateTextInput)
+  );
 
-  // =====delete button======
+  // Add delete event
   const deleteButton = newIngredientInput.querySelector(".del-btn");
   deleteButton.addEventListener("click", removeIngredient);
 
-  addIngredient.insertAdjacentElement("beforebegin", newIngredientInput);
+  // Insert before Add button
+  addBtn.insertAdjacentElement("beforebegin", newIngredientInput);
 
   updateDeleteButtons();
-  updateIngredientLabels();
+  updateIngredientLabels(activeTab);
 }
 
-// =====clear all inputs======
+// ===== CLEAR ALL INPUTS =====
+clearAllBtn.forEach((button) =>
+  button.addEventListener("click", clearAllInputs)
+);
 
-clearAll.addEventListener("click", clearAllInputs);
-function clearAllInputs() {
-  const ingredientGroups = document.querySelectorAll(".ingredient-group");
-  const ingredientGroupsArray = [...ingredientGroups].slice(1);
-  ingredientGroupsArray.forEach((group) => group.remove());
+function clearAllInputs(event) {
+  const activeTab = event.target.closest(".recipe-scale");
 
-  const inputs = document.querySelectorAll("input, select");
+  // Remove all cloned ingredient groups except the first
+  const ingredientGroups = activeTab.querySelectorAll(".ingredient-group");
+  [...ingredientGroups].slice(1).forEach((group) => group.remove());
 
+  // Reset inputs
+  const inputs = activeTab.querySelectorAll("input, select");
   inputs.forEach((input) => {
     input.value = "";
-    if (input.tagName === "SELECT") {
-      input.selectedIndex = 0;
-    }
+    if (input.tagName === "SELECT") input.selectedIndex = 0;
   });
 
-  const updatedListItem = document.querySelectorAll(".updated-ingredient");
-  updatedListItem.forEach((listItem) => listItem.remove());
-  const errorMessages = document.querySelectorAll(".error-message");
-  errorMessages.forEach((msg) => msg.remove());
+  // Clear output & errors
+  updatedRecipeList
+    .querySelectorAll(".updated-ingredient, .error-message")
+    .forEach((el) => el.remove());
 
+  // Restore placeholder
   updatedRecipeList.append(placeholderText);
+
+  updateDeleteButtons();
 }
 
-// =====REMOVE INGREDIENT LINE======
+// ===== REMOVE INGREDIENT LINE =====
 function removeIngredient(event) {
   event.preventDefault();
-  const ingrInputs = event.target.closest(".ingredient-group");
-  ingrInputs.remove();
+  const activeTab = event.target.closest(".recipe-scale");
+  const group = event.target.closest(".ingredient-group");
+  group.remove();
   updateDeleteButtons();
-  updateIngredientLabels();
+  updateIngredientLabels(activeTab);
 }
 
-// =====UPDATE DEL BUTTON======
+// ===== UPDATE DELETE BUTTON STATE =====
 function updateDeleteButtons() {
   const activeTab = document.querySelector(".recipe-scale.active");
+  if (!activeTab) return;
 
-  const ingrInputs = activeTab.querySelectorAll(".ingredient-group");
+  const groups = activeTab.querySelectorAll(".ingredient-group");
   const deleteButtons = activeTab.querySelectorAll(".del-btn");
 
-  if (ingrInputs.length === 1) {
-    deleteButtons.forEach((button) => (button.disabled = true));
-  } else if (ingrInputs.length >= 2) {
-    deleteButtons.forEach((button) => (button.disabled = false));
-  }
+  const disable = groups.length === 1;
+  deleteButtons.forEach((btn) => (btn.disabled = disable));
 }
 
-// =====INPUTS VALIDATION======
+// ===== INPUT VALIDATION =====
 function validateTextInput(event) {
   const input = event.target;
-
-  if (input.type === "text") {
-    input.value = input.value.replace(/[0-9]/g, "");
-  }
+  input.value = input.value.replace(/[0-9]/g, "");
 }
 
 function validateNumInputs(event) {
   if (
     !/[0-9]/.test(event.key) &&
-    event.key !== "Backspace" &&
-    event.key !== "Delete" &&
-    event.key !== "ArrowLeft" &&
-    event.key !== "ArrowRight" &&
-    event.key !== "Tab" &&
-    event.key !== "." &&
-    event.key !== "Enter"
+    ![
+      "Backspace",
+      "Delete",
+      "ArrowLeft",
+      "ArrowRight",
+      "Tab",
+      ".",
+      "Enter",
+    ].includes(event.key)
   ) {
     event.preventDefault();
   }
 }
 
-// =====INGREDIENT LABEL NUMBER======
-
-function updateIngredientLabels() {
-  const ingredientGroups = document.querySelectorAll(".ingredient-group");
-
+// ===== INGREDIENT LABEL NUMBERS =====
+function updateIngredientLabels(activeTab) {
+  const ingredientGroups = activeTab.querySelectorAll(".ingredient-group");
   ingredientGroups.forEach((group, index) => {
     const label = group.querySelector(".ingr-label");
     label.textContent = "Ingredient " + (index + 1);
   });
 }
 
-// =====RECIPE SCALING BY PORTION======
-
-scaleRecipeButton.addEventListener("click", scaleRecipe);
+// ===== RECIPE SCALING BY PORTION =====
+scaleRecipeButton.forEach((button) =>
+  button.addEventListener("click", scaleRecipe)
+);
 
 function scaleRecipe(event) {
   event.preventDefault();
-  const updatedListItem = document.querySelectorAll(".updated-ingredient");
-  updatedListItem.forEach((ingredient) => ingredient.remove());
+  const activeTab = event.target.closest(".recipe-scale");
+  if (activeTab.id !== "portion") return; // only run on portion tab for now
 
-  document.querySelectorAll(".error-message").forEach((msg) => msg.remove());
+  // Reset previous list + errors
+  updatedRecipeList
+    .querySelectorAll(".updated-ingredient, .error-message")
+    .forEach((el) => el.remove());
 
-  const name = document.querySelector(".ingr-name").value;
-  const qty = document.querySelector(".ingr-qty").value;
+  const name = activeTab.querySelector(".ingr-name").value;
+  const qty = activeTab.querySelector(".ingr-qty").value;
 
+  // Validate base & desired yield
   if (!baseQty.value || !desiredQty.value) {
     placeholderText.remove();
     const errorMessage = document.createElement("p");
@@ -202,27 +212,28 @@ function scaleRecipe(event) {
     errorMessage.textContent = "Please input your base and desired yield!";
     updatedRecipeList.append(errorMessage);
     return;
-  } else if (!name || !qty) {
+  }
+
+  // Validate ingredients
+  if (!name || !qty) {
     placeholderText.remove();
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("error-message");
-    errorMessage.textContent = "Please input names and quantity of ingredients";
+    errorMessage.textContent =
+      "Please input names and quantity of ingredients!";
     updatedRecipeList.append(errorMessage);
     return;
   }
 
-  const ingredientGroups = document.querySelectorAll(".ingredient-group");
-  let scaleFactor = Number(desiredQty.value) / Number(baseQty.value);
+  const ingredientGroups = activeTab.querySelectorAll(".ingredient-group");
+  const scaleFactor = Number(desiredQty.value) / Number(baseQty.value);
 
   placeholderText.remove();
   ingredientGroups.forEach((group) => {
     const name = group.querySelector(".ingr-name").value;
     const qty = group.querySelector(".ingr-qty").value;
     const unit = group.querySelector(".select").value;
-
-    if (!name || !qty) {
-      return;
-    }
+    if (!name || !qty) return;
 
     const scaledQty = Number(qty) * scaleFactor;
     const roundedQty = Math.round(scaledQty * 100) / 100;
@@ -230,9 +241,6 @@ function scaleRecipe(event) {
     const updatedListItem = document.createElement("li");
     updatedListItem.classList.add("updated-ingredient");
     updatedListItem.textContent = `${name}: ${roundedQty} ${unit}`;
-
     updatedRecipeList.append(updatedListItem);
   });
 }
-
-// =====RECIPE SCALING BY INGREDIENT======
