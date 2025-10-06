@@ -15,12 +15,48 @@ const textInput = document.querySelector('input[type="text"]');
 const placeholderText = document.querySelector(".empty-card-message");
 const updatedRecipeList = document.querySelector(".updated-recipe-list");
 
+const tabButtons = document.querySelectorAll(".tablink");
+const tabContent = document.querySelectorAll(".tabcontent");
+
 numInputs.forEach((input) =>
   input.addEventListener("keydown", validateNumInputs)
 );
 textInput.addEventListener("input", validateTextInput);
 
 updateDeleteButtons();
+// =====SWITCH TABS======
+tabButtons.forEach((button) => {
+  button.addEventListener("click", switchTabs);
+});
+
+function switchTabs(event) {
+  const clickedBtn = event.currentTarget;
+  const tabName = clickedBtn.dataset.tab;
+
+  tabContent.forEach((tab) => {
+    tab.classList.remove("active");
+  });
+  tabButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  clickedBtn.classList.add("active");
+  document.getElementById(tabName).classList.add("active");
+  updateOutputCard(tabName);
+  updateDeleteButtons();
+}
+
+// =====UPDATE OUTPUT DEFAULT======
+
+function updateOutputCard(tabName) {
+  if (tabName === "key-ingr") {
+    placeholderText.textContent =
+      "Input your key ingredient and the original recipe and click ‘Scale Recipe’ to see your updated recipe. Be sure to include the key ingredient in the recipe.";
+  } else if (tabName === "portion") {
+    placeholderText.textContent =
+      "Input your ingredients and amounts and click 'Scale Recipe' tosee your updated recipe.";
+  }
+}
 
 // =====ADD NEW INGREDIENT LINE======
 
@@ -66,6 +102,10 @@ function addNewIngredient(event) {
 
 clearAll.addEventListener("click", clearAllInputs);
 function clearAllInputs() {
+  const ingredientGroups = document.querySelectorAll(".ingredient-group");
+  const ingredientGroupsArray = [...ingredientGroups].slice(1);
+  ingredientGroupsArray.forEach((group) => group.remove());
+
   const inputs = document.querySelectorAll("input, select");
 
   inputs.forEach((input) => {
@@ -79,6 +119,7 @@ function clearAllInputs() {
   updatedListItem.forEach((listItem) => listItem.remove());
   const errorMessages = document.querySelectorAll(".error-message");
   errorMessages.forEach((msg) => msg.remove());
+
   updatedRecipeList.append(placeholderText);
 }
 
@@ -93,8 +134,10 @@ function removeIngredient(event) {
 
 // =====UPDATE DEL BUTTON======
 function updateDeleteButtons() {
-  const ingrInputs = document.querySelectorAll(".ingredient-group");
-  const deleteButtons = document.querySelectorAll(".del-btn");
+  const activeTab = document.querySelector(".recipe-scale.active");
+
+  const ingrInputs = activeTab.querySelectorAll(".ingredient-group");
+  const deleteButtons = activeTab.querySelectorAll(".del-btn");
 
   if (ingrInputs.length === 1) {
     deleteButtons.forEach((button) => (button.disabled = true));
@@ -138,7 +181,7 @@ function updateIngredientLabels() {
   });
 }
 
-// =====RECIPE SCALING======
+// =====RECIPE SCALING BY PORTION======
 
 scaleRecipeButton.addEventListener("click", scaleRecipe);
 
@@ -191,3 +234,5 @@ function scaleRecipe(event) {
     updatedRecipeList.append(updatedListItem);
   });
 }
+
+// =====RECIPE SCALING BY INGREDIENT======

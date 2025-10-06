@@ -14,6 +14,13 @@
 .app-name {
   font-size: 22px;
 }
+
+.main-heading {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+
 .yield {
   display: flex;
   flex-direction: column;
@@ -142,6 +149,14 @@
 .recipe-scale {
   order: 2;
 }
+
+.tabcontent {
+  display: none;
+}
+
+.tabcontent.active {
+  display: block;
+}
 .updated-recipe-card {
   padding-top: 100px;
   padding-bottom: 0;
@@ -162,6 +177,41 @@
 
 .list-heading {
   text-align: center;
+}
+
+.tablink {
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 1px solid var(--accent-hover);
+  color: var(--accent-hover);
+  font-weight: 700;
+  padding: 12px 20px;
+  width: 50%;
+  height: 50px;
+  transition: color 400ms ease-in-out, background-color 400ms ease-in-out;
+}
+
+.tablink:hover,
+.tablink:focus {
+  background-color: var(--accent-hover);
+  color: var(--bg-cream);
+  border: none;
+  outline: none;
+}
+
+.tablink.active {
+  background-color: var(--accent-light);
+  color: var(--text-brown);
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.tab-btns-wrapper {
+  display: flex;
+  max-width: 100%;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 @media screen and (min-width: 0) and (max-width: 320px) {
   .app-name {
@@ -253,5 +303,10 @@
   }
   .updated-recipe-card {
     order: 2;
+  }
+  .tab-btns-wrapper {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

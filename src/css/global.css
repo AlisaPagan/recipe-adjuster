@@ -80,8 +80,8 @@ button {
   border-radius: 8px;
   height: 50px;
   border: none;
-  transition: color 450ms ease-in-out, background-color 450ms ease-in-out,
-    box-shadow 450ms ease-in-out;
+  transition: color 400ms ease-in-out, background-color 400ms ease-in-out,
+    box-shadow 400ms ease-in-out;
 }
 
 .button:hover,
