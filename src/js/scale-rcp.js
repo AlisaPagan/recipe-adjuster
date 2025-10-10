@@ -12,6 +12,7 @@ const textInputs = document.querySelectorAll('input[type="text"]');
 
 const placeholderText = document.querySelector(".empty-card-message");
 const updatedRecipeList = document.querySelector(".updated-recipe-list");
+const originalRecipeList = document.querySelector(".original-recipe-list");
 
 const tabButtons = document.querySelectorAll(".tablink");
 const tabSections = document.querySelectorAll(".recipe-scale");
@@ -26,6 +27,7 @@ textInputs.forEach((input) =>
 
 // ===== INITIALIZE =====
 updateDeleteButtons();
+resetRadio();
 
 // ===== SWITCH TABS =====
 tabButtons.forEach((button) => {
@@ -44,6 +46,11 @@ function switchTabs(event) {
   clickedBtn.classList.add("active");
   document.getElementById(tabName).classList.add("active");
 
+  // Reset on switch tabs
+  const newTab = document.getElementById(tabName);
+  const fakeEvent = { target: newTab.querySelector(".clear-btn") };
+
+  clearAllInputs(fakeEvent);
   updateOutputCard(tabName);
   updateDeleteButtons();
 }
@@ -75,6 +82,7 @@ function addNewIngredient(event) {
 
   // ==== Clone + reset ====
   const newIngredientInput = ingredientInput.cloneNode(true);
+
   const inputs = newIngredientInput.querySelectorAll("input, select");
   inputs.forEach((input) => {
     input.value = "";
@@ -94,6 +102,12 @@ function addNewIngredient(event) {
   // ==== Add delete event ====
   const deleteButton = newIngredientInput.querySelector(".del-btn");
   deleteButton.addEventListener("click", removeIngredient);
+
+  // ==== Reset cloned radios ====
+  const cloneRadio = newIngredientInput.querySelector(
+    "input[name='radio-key']"
+  );
+  if (cloneRadio) cloneRadio.checked = false;
 
   // ==== Insert before Add button ====
   addBtn.insertAdjacentElement("beforebegin", newIngredientInput);
@@ -126,6 +140,7 @@ function clearAllInputs(event) {
     .querySelectorAll(".updated-ingredient, .error-message")
     .forEach((el) => el.remove());
 
+  resetRadio();
   // ==== Restore placeholder ====
   updatedRecipeList.append(placeholderText);
 
@@ -304,6 +319,10 @@ function scaleRecipe(event) {
 
     const keyScaleFactor = Number(keyIngredient.value) / Number(ingrQty);
 
+    const originalRecipeTitle = document.createElement("h3");
+    originalRecipeTitle.classList.add("list-heading");
+    originalRecipeTitle.textContent = "Your original recipe";
+
     const ingrGroups = activeTab.querySelectorAll(".ingredient-group");
     ingrGroups.forEach((group) => {
       const ingrName = group.querySelector(".ingr-name").value;
@@ -315,15 +334,19 @@ function scaleRecipe(event) {
       const scaledQty = Number(ingrQty) * keyScaleFactor;
       const roundedQty = Math.round(scaledQty * 100) / 100;
 
-      const originalRecipe = document.createElement("li");
-      originalRecipe.classList.add("original-ingredient");
-      originalRecipe.textContent = `${ingrName}: ${ingrQty} ${ingrUnit}`;
-      updatedRecipeList.append(originalRecipe);
-
+      placeholderText.remove();
       const updatedListItem = document.createElement("li");
       updatedListItem.classList.add("updated-ingredient");
       updatedListItem.textContent = `${ingrName}: ${roundedQty} ${ingrUnit}`;
+
       updatedRecipeList.append(updatedListItem);
     });
   }
+}
+
+function resetRadio() {
+  const activeTab = document.querySelector(".recipe-scale.active");
+  const radioButton = activeTab.querySelectorAll("input[name='radio-key']");
+
+  radioButton.forEach((button) => (button.checked = false));
 }
