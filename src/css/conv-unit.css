@@ -5,3 +5,33 @@
   align-items: center;
   max-width: 100%;
 }
+
+.home-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.main-heading {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.input-label {
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 12px 20px;
+  border-radius: 8px;
+  width: 100%;
+  border: 1px var(--accent-light) solid;
+  background-color: var(--bg-cream);
+}

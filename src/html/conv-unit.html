@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+    />
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/conv-unit.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
     <title>Unit Conversion</title>
   </head>
+
   <body>
     <header id="header" class="header container">
       <a class="home-btn" href="../../index.html">
@@ -18,6 +30,137 @@
       <h2 class="app-name">Baking Adjustment Helper</h2>
     </header>
 
-    <main><h1 class="main-heading">Units conversion</h1></main>
+    <main>
+      <h1 class="main-heading">Units conversion</h1>
+      <section class="section units-conv">
+        <div class="section-wrapper container">
+          <div>
+            <h3 class="heading">Convert units</h3>
+            <form name="convert-units" class="form">
+              <div class="unit-inputs-wrapper">
+                <label class="input-label"
+                  >Amount<input class="form-input" type="number"
+                /></label>
+
+                <label class="input-label" for="convert-from">Unit</label>
+                <select class="form-input" name="units" id="convert-from">
+                  <optgroup label="Volume" class="opt-group-label">
+                    <option value="ml">Milliliter</option>
+                    <option value="l">Liter</option>
+                    <option value="tsp">Teaspoon</option>
+                    <option value="tbsp">Tablespoon</option>
+                    <option value="cup">Cup</option>
+                    <option value="fl-oz">Fluid ounce</option>
+                    <option value="pt">Pint</option>
+                    <option value="qt">Quart</option>
+                    <option value="gal">Gallon</option>
+                  </optgroup>
+
+                  <optgroup label="Weight" class="opt-group-label">
+                    <option value="g">Gram</option>
+                    <option value="kg">Kilogram</option>
+                    <option value="oz">Ounce</option>
+                    <option value="lb">Pound</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <p>convert to</p>
+
+              <label class="input-label" for="convert-to">Unit</label>
+              <select class="form-input" name="units" id="convert-to">
+                <optgroup label="Volume" class="opt-group-label">
+                  <option value="ml">Milliliter</option>
+                  <option value="l">Liter</option>
+                  <option value="tsp">Teaspoon</option>
+                  <option value="tbsp">Tablespoon</option>
+                  <option value="cup">Cup</option>
+                  <option value="fl-oz">Fluid ounce</option>
+                  <option value="pt">Pint</option>
+                  <option value="qt">Quart</option>
+                  <option value="gal">Gallon</option>
+                </optgroup>
+
+                <optgroup label="Weight" class="opt-group-label">
+                  <option value="g">Gram</option>
+                  <option value="kg">Kilogram</option>
+                  <option value="oz">Ounce</option>
+                  <option value="lb">Pound</option>
+                </optgroup>
+              </select>
+
+              <label class="input-label" for="ingredients">Ingredient</label>
+              <select class="form-input" name="ingredients" id="ingredients">
+                <optgroup label="Liquids" class="opt-group-label">
+                  <option value="Water">Water</option>
+                  <option value="Milk">Milk</option>
+                  <option value="Whey">Whey</option>
+                  <option value="Buttermilk">Buttermilk</option>
+                  <option value="Kefir">Kefir</option>
+                  <option value="Butter-melted">Butter (melted)</option>
+                  <option value="Oil">Oil (vegetable/olive)</option>
+                  <option value="Honey">Honey</option>
+                </optgroup>
+
+                <optgroup label="Flours & dry" class="opt-group-label">
+                  <option value="Sugar-granulated">Sugar (granulated)</option>
+                  <option value="Brown-sugar-packed">
+                    Brown sugar (packed)
+                  </option>
+                  <option value="Powdered sugar">Powdered sugar</option>
+                  <option value="All-purpose-flour">All-purpose flour</option>
+                  <option value="Whole-wheat-flour">Whole wheat flour</option>
+                  <option value="Rye-flour">Rye flour</option>
+                  <option value="Cocoa-powder">
+                    Cocoa powder (unsweetened)
+                  </option>
+                </optgroup>
+              </select>
+            </form>
+          </div>
+
+          <div>
+            <h3 class="heading">Convert tempetature</h3>
+            <form name="convert-temperature" class="form">
+              <label class="input-label"
+                >Amout<input class="form-input" type="number" />
+              </label>
+
+              <label class="input-label" for="from-temp">Unit</label>
+              <select class="form-input" name="temps" id="from-temp">
+                <option value="c">Celsius (°C)</option>
+                <option value="f">Fahrenheit (°F)</option>
+                <option value="gas-mark">Gas Mark (UK ovens)</option>
+              </select>
+
+              <p>convert to</p>
+              <label class="input-label" for="to-temp">Unit</label>
+              <select class="form-input" name="temps" id="to-temp">
+                <option value="c">Celsius (°C)</option>
+                <option value="f">Fahrenheit (°F)</option>
+                <option value="gas-mark">Gas Mark (UK ovens)</option>
+              </select>
+            </form>
+          </div>
+
+          <div>
+            <h3 class="heading">Options</h3>
+            <button class="button" type="button">None</button>
+            <button class="button" type="button">0.5</button>
+            <button class="button" type="button">Whole</button>
+          </div>
+
+          <div>
+            <h3 class="heading">Result</h3>
+            <div>
+              <p>Converted</p>
+              <p></p>
+            </div>
+          </div>
+
+          <p></p>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
