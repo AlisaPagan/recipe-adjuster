@@ -1,61 +1,16 @@
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 100%;
-}
-
-.home-btn .icon {
-  width: 24px;
-  height: 24px;
-}
-
-.app-name {
-  font-size: 22px;
-}
-
-.main-heading {
-  padding-top: 32px;
-  padding-bottom: 32px;
-  text-align: center;
-}
+@import url("./global.css");
 
 .yield {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-}
+
 .input-wrapper {
   display: flex;
   flex-direction: column;
 }
-.input-label {
-  margin-bottom: 10px;
-}
 
-.home-btn {
-  background-color: transparent;
-  border: none;
-}
-
-.form-input {
-  padding: 12px 20px;
-  border-radius: 8px;
-  width: 100%;
-  border: 1px var(--accent-light) solid;
-  background-color: var(--bg-cream);
-}
-
-.form-input:focus {
-  outline: 0.5px solid var(--accent-dark);
-}
 .result-btn,
 .clear-btn {
   font-weight: 500;
@@ -231,20 +186,9 @@
   margin-right: 15px;
 }
 @media screen and (min-width: 0) and (max-width: 320px) {
-  .app-name {
-    font-size: 18px;
-    margin-left: 10px;
-    text-align: end;
-  }
-
   .ingredient-input-wrapper {
     gap: 14px;
     align-items: unset;
-  }
-
-  .home-btn .icon {
-    width: 18px;
-    height: 18px;
   }
 }
 
@@ -262,10 +206,6 @@
   .ingr-qty {
     border-left: none;
     border-radius: 0 8px 8px 0;
-  }
-
-  .form-input {
-    width: auto;
   }
 
   .yield {

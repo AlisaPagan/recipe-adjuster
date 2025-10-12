@@ -94,30 +94,67 @@ button:focus {
 
 .header {
   display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
   background-color: var(--accent-dark);
-  box-shadow: 0px 2px 6px rgba(26, 3, 3, 0.4);
+  color: var(--bg-cream);
+  padding: 20px 24px;
+  text-align: end;
 }
 
-.app-name {
-  font-family: "Quicksand", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
+.main-heading {
+  padding-top: 32px;
+  padding-bottom: 32px;
   text-align: center;
-  color: var(--bg-cream);
 }
 
 .icon {
+  width: 24px;
+  height: 24px;
   fill: var(--bg-cream);
-  transition: fill 400ms ease-in-out;
-  width: 18px;
-  height: 18px;
+}
+.home-btn.icon {
+  fill: var(--bg-cream);
+}
+.app-name {
+  font-size: 22px;
+}
+.home-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.home-btn.icon {
+  fill: var(--bg-cream);
 }
 
 .icon:hover {
   fill: var(--accent-light);
+}
+
+.input-label {
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 12px 20px;
+  border-radius: 8px;
+  width: 100%;
+  border: 1px var(--accent-light) solid;
+  background-color: var(--bg-cream);
+}
+
+.form-input:focus {
+  outline: 0.5px solid var(--accent-dark);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -136,6 +173,10 @@ button:focus {
 
   .section-wrapper {
     gap: 32px;
+  }
+
+  .form-input {
+    width: auto;
   }
 }
 
@@ -157,11 +198,18 @@ button:focus {
     padding-bottom: 75px;
   }
 
-  .app-name {
-    font-size: 20px;
-  }
-
   .heading {
     font-size: 28px;
+  }
+
+  .app-name {
+    font-size: 18px;
+    margin-left: 10px;
+    text-align: end;
+  }
+
+  .home-btn .icon {
+    width: 18px;
+    height: 18px;
   }
 }
