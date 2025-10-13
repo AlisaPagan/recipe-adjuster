@@ -33,35 +33,38 @@
       <h1 class="main-heading">Units conversion</h1>
       <section class="section units-conv">
         <div class="section-wrapper container">
-          <div>
+          <div class="convert-units-form-wrap">
             <h3 class="heading">Convert units</h3>
             <form name="convert-units" class="form">
               <div class="unit-inputs-wrapper">
-                <label class="input-label"
-                  >Amount<input class="form-input" type="number"
-                /></label>
+                <div class="input-wrapper">
+                  <label class="input-label" for="unit-to-conv">Amount</label>
+                  <input class="form-input" type="number" id="unit-to-conv" />
+                </div>
 
-                <label class="input-label" for="convert-from">Unit</label>
-                <select class="form-input" name="units" id="convert-from">
-                  <optgroup label="Volume" class="opt-group-label">
-                    <option value="ml">Milliliter</option>
-                    <option value="l">Liter</option>
-                    <option value="tsp">Teaspoon</option>
-                    <option value="tbsp">Tablespoon</option>
-                    <option value="cup">Cup</option>
-                    <option value="fl-oz">Fluid ounce</option>
-                    <option value="pt">Pint</option>
-                    <option value="qt">Quart</option>
-                    <option value="gal">Gallon</option>
-                  </optgroup>
+                <div class="input-wrapper">
+                  <label class="input-label" for="convert-from">Unit</label>
+                  <select class="form-input" name="units" id="convert-from">
+                    <optgroup label="Volume" class="opt-group-label">
+                      <option value="ml">Milliliter</option>
+                      <option value="l">Liter</option>
+                      <option value="tsp">Teaspoon</option>
+                      <option value="tbsp">Tablespoon</option>
+                      <option value="cup">Cup</option>
+                      <option value="fl-oz">Fluid ounce</option>
+                      <option value="pt">Pint</option>
+                      <option value="qt">Quart</option>
+                      <option value="gal">Gallon</option>
+                    </optgroup>
 
-                  <optgroup label="Weight" class="opt-group-label">
-                    <option value="g">Gram</option>
-                    <option value="kg">Kilogram</option>
-                    <option value="oz">Ounce</option>
-                    <option value="lb">Pound</option>
-                  </optgroup>
-                </select>
+                    <optgroup label="Weight" class="opt-group-label">
+                      <option value="g">Gram</option>
+                      <option value="kg">Kilogram</option>
+                      <option value="oz">Ounce</option>
+                      <option value="lb">Pound</option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
 
               <p>convert to</p>
@@ -118,11 +121,11 @@
             </form>
           </div>
 
-          <div>
+          <div class="convert-units-form-wrap">
             <h3 class="heading">Convert tempetature</h3>
             <form name="convert-temperature" class="form">
               <label class="input-label"
-                >Amout<input class="form-input" type="number" />
+                >Amount<input class="form-input" type="number" />
               </label>
 
               <label class="input-label" for="from-temp">Unit</label>
@@ -142,14 +145,14 @@
             </form>
           </div>
 
-          <div>
+          <div class="convert-units-form-wrap">
             <h3 class="heading">Options</h3>
             <button class="button" type="button">None</button>
             <button class="button" type="button">0.5</button>
             <button class="button" type="button">Whole</button>
           </div>
 
-          <div>
+          <div class="convert-units-form-wrap">
             <h3 class="heading">Result</h3>
             <div>
               <p>Converted</p>

@@ -1,1 +1,17 @@
 @import url("./global.css");
+
+.convert-units-form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.unit-inputs-wrapper {
+  display: flex;
+  gap: 24px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
