@@ -239,6 +239,11 @@
     width: 50px;
   }
 
+  .updated-recipe-card {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .updated-recipe-list {
     width: 100%;
   }
@@ -263,5 +268,10 @@
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .select {
+    flex: none;
+    width: auto;
   }
 }

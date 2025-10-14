@@ -144,7 +144,7 @@ button:focus {
   border-radius: 8px;
   width: 100%;
   border: 1px var(--accent-light) solid;
-  background-color: var(--bg-cream);
+  background-color: transparent;
 }
 
 .form-input:focus {
@@ -177,7 +177,7 @@ button:focus {
   }
 
   .form-input {
-    width: auto;
+    width: 100%;
   }
 }
 

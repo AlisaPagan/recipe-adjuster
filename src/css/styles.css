@@ -40,6 +40,24 @@
   text-align: center;
 }
 
+/* TEMPORARY */
+
+.disabled {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: var(--bg-cream);
+}
+
+.disabled:hover {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: var(--bg-cream);
+  box-shadow: none;
+}
+/* END OF TEMPORARY */
+
 @media screen and (min-width: 768px) {
   .btn-link {
     width: calc((100% - 32px) / 2);
