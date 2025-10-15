@@ -15,14 +15,16 @@
       rel="stylesheet"
     />
     <title>Unit Conversion</title>
-    <link rel="stylesheet" crossorigin href="/recipe-adjuster/assets/convert-DSTiLrvS.css">
+    <script type="module" crossorigin src="/recipe-adjuster/assets/convert-BUq2K717.js"></script>
+    <link rel="modulepreload" crossorigin href="/recipe-adjuster/assets/functions-DG2tvBXz.js">
+    <link rel="stylesheet" crossorigin href="/recipe-adjuster/assets/convert-BXnONGX1.css">
   </head>
 
   <body>
     <header id="header" class="header container">
       <a class="home-btn" href="./index.html">
         <svg class="icon">
-          <use href="/recipe-adjuster/assets/icons-BV_Cqjp2.svg#icon-home"></use>
+          <use href="/recipe-adjuster/assets/icons-jf9CkOJA.svg#icon-home"></use>
         </svg>
       </a>
 
@@ -37,13 +39,17 @@
             <h3 class="list-heading">Result</h3>
             <div>
               <p>Converted:</p>
-              <p>Converted density:</p>
             </div>
           </div>
 
           <div class="convert-cards-wrapper">
             <div class="convert-units-form-wrap units">
-              <h3 class="list-heading">Convert units</h3>
+              <h3 class="list-heading">
+                Convert units
+                <svg class="icon">
+                  <use href="/recipe-adjuster/assets/icons-jf9CkOJA.svg#icon-circle-down"></use>
+                </svg>
+              </h3>
               <form name="convert-units" class="form">
                 <div class="unit-inputs-wrapper">
                   <div class="input-wrapper">
@@ -139,9 +145,7 @@
                         Whole wheat flour
                       </option>
                       <option value="Rye-flour">Rye flour</option>
-                      <option value="Cocoa-powder">
-                        Cocoa powder (unsweetened)
-                      </option>
+                      <option value="Cocoa-powder">Cocoa powder</option>
                     </optgroup>
                   </select>
                 </div>
@@ -150,9 +154,15 @@
               <div class="options">
                 <h3 class="list-heading">Options</h3>
                 <div class="option-buttons">
-                  <button class="button" type="button">None</button>
-                  <button class="button" type="button">0.5</button>
-                  <button class="button" type="button">Whole</button>
+                  <button class="button option-button" type="button">
+                    None
+                  </button>
+                  <button class="button option-button" type="button">
+                    0.5
+                  </button>
+                  <button class="button option-button" type="button">
+                    Whole
+                  </button>
                 </div>
               </div>
               <div class="action-buttons">
@@ -164,12 +174,17 @@
             </div>
 
             <div class="convert-units-form-wrap temp">
-              <h3 class="list-heading">Convert tempetature</h3>
+              <h3 class="list-heading">
+                Convert tempetature
+                <svg class="icon">
+                  <use href="/recipe-adjuster/assets/icons-jf9CkOJA.svg#icon-circle-down"></use>
+                </svg>
+              </h3>
               <form name="convert-temperature" class="form">
                 <div class="unit-inputs-wrapper">
                   <div class="input-wrapper">
-                    <label class="input-label">Amount </label>
-                    <input class="form-input" type="number" />
+                    <label class="input-label" for="degrees">Degrees</label>
+                    <input class="form-input" type="number" id="degrees" />
                   </div>
 
                   <div class="input-wrapper">
@@ -205,5 +220,6 @@
         </div>
       </section>
     </main>
+
   </body>
 </html>
