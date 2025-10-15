@@ -1,3 +1,8 @@
+// ===== IMPORTS =====
+// input validation
+
+import { validateNumInputs } from "./functions.js";
+
 // ===== GLOBAL ELEMENTS =====
 const baseQty = document.querySelector("#base");
 const desiredQty = document.querySelector("#desired");
@@ -173,23 +178,6 @@ function updateDeleteButtons() {
 function validateTextInput(event) {
   const input = event.target;
   input.value = input.value.replace(/[0-9]/g, "");
-}
-
-function validateNumInputs(event) {
-  if (
-    !/[0-9]/.test(event.key) &&
-    ![
-      "Backspace",
-      "Delete",
-      "ArrowLeft",
-      "ArrowRight",
-      "Tab",
-      ".",
-      "Enter",
-    ].includes(event.key)
-  ) {
-    event.preventDefault();
-  }
 }
 
 // ===== INGREDIENT LABEL NUMBERS =====

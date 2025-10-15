@@ -18,6 +18,50 @@
   box-shadow: 0px 2px 6px rgba(26, 3, 3, 0.4);
 }
 
+.convert-units-form-wrap .form,
+.convert-units-form-wrap .options,
+.convert-units-form-wrap .action-buttons {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 400ms ease-in-out;
+}
+
+.convert-units-form-wrap.open .form,
+.convert-units-form-wrap.open .options,
+.convert-units-form-wrap.open .action-buttons {
+  max-height: 750px;
+}
+
+.list-heading .icon {
+  fill: var(--text-brown);
+  transition: fill 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+.list-heading .icon:hover,
+.list-heading .icon:focus {
+  fill: var(--accent-hover);
+}
+
+.convert-units-form-wrap.open .icon {
+  transform: rotate(180deg);
+}
+.list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 400ms ease-in-out;
+}
+
+.list-heading:hover,
+.list-heading:focus {
+  color: var(--accent-hover);
+}
+
+.options .list-heading {
+  display: block;
+  text-align: center;
+}
+
 .unit-inputs-wrapper {
   display: flex;
   gap: 24px;
@@ -31,10 +75,6 @@
 
 .form .descr {
   font-weight: 600;
-}
-
-.list-heading {
-  text-align: center;
 }
 
 .option-buttons {
@@ -93,6 +133,12 @@
   gap: 45px;
 }
 
+optgroup {
+  font-style: normal;
+  font-weight: 600;
+  background-color: rgba(242, 170, 107, 80%);
+  color: var(--text-brown);
+}
 @media screen and (min-width: 0) and (max-width: 320px) {
   .section-wrapper {
     gap: 30px;
@@ -130,14 +176,13 @@
     width: 50%;
   }
   .convert-cards-wrapper {
-    flex-direction: row;
+    flex-direction: column;
     gap: 24px;
   }
 
   .units,
   .temp {
-    width: 50%;
-    justify-content: start;
+    justify-content: center;
     height: fit-content;
   }
 }
@@ -155,5 +200,28 @@
   .result {
     width: 50%;
     align-self: center;
+  }
+
+  .convert-units-form-wrap .form,
+  .convert-units-form-wrap .options,
+  .convert-units-form-wrap .action-buttons {
+    max-height: fit-content;
+    overflow: hidden;
+    transition: max-height 400ms ease-in-out;
+  }
+
+  .convert-cards-wrapper {
+    flex-direction: row;
+  }
+
+  .units,
+  .temp {
+    width: 50%;
+    justify-content: center;
+    height: fit-content;
+  }
+
+  .list-heading .icon {
+    display: none;
   }
 }
