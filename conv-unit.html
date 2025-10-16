@@ -15,9 +15,9 @@
       rel="stylesheet"
     />
     <title>Unit Conversion</title>
-    <script type="module" crossorigin src="/recipe-adjuster/assets/convert-BUq2K717.js"></script>
+    <script type="module" crossorigin src="/recipe-adjuster/assets/convert-tVm_O5T6.js"></script>
     <link rel="modulepreload" crossorigin href="/recipe-adjuster/assets/functions-DG2tvBXz.js">
-    <link rel="stylesheet" crossorigin href="/recipe-adjuster/assets/convert-BXnONGX1.css">
+    <link rel="stylesheet" crossorigin href="/recipe-adjuster/assets/convert-KOw6qo4q.css">
   </head>
 
   <body>
@@ -37,13 +37,16 @@
         <div class="section-wrapper container">
           <div class="convert-units-form-wrap result">
             <h3 class="list-heading">Result</h3>
-            <div>
-              <p>Converted:</p>
+            <div class="result-wrapper">
+              <p class="result-placeholder">
+                Please, input your values, select units and conditions and click
+                convert!
+              </p>
             </div>
           </div>
 
           <div class="convert-cards-wrapper">
-            <div class="convert-units-form-wrap units">
+            <div class="convert-units-form-wrap units open">
               <h3 class="list-heading">
                 Convert units
                 <svg class="icon">
@@ -54,7 +57,13 @@
                 <div class="unit-inputs-wrapper">
                   <div class="input-wrapper">
                     <label class="input-label" for="unit-to-conv">Amount</label>
-                    <input class="form-input" type="number" id="unit-to-conv" />
+                    <input
+                      class="form-input"
+                      type="number"
+                      id="unit-to-conv"
+                      min="0"
+                      autocomplete="off"
+                    />
                   </div>
 
                   <div class="input-wrapper">
@@ -184,7 +193,13 @@
                 <div class="unit-inputs-wrapper">
                   <div class="input-wrapper">
                     <label class="input-label" for="degrees">Degrees</label>
-                    <input class="form-input" type="number" id="degrees" />
+                    <input
+                      class="form-input"
+                      type="number"
+                      id="degrees"
+                      min="0"
+                      autocomplete="off"
+                    />
                   </div>
 
                   <div class="input-wrapper">
