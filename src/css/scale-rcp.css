@@ -185,6 +185,11 @@
 .radio-btn {
   margin-right: 15px;
 }
+
+hr {
+  border: 2px dotted var(--text-brown);
+}
+
 @media screen and (min-width: 0) and (max-width: 320px) {
   .ingredient-input-wrapper {
     gap: 14px;
@@ -246,6 +251,10 @@
   }
   .updated-recipe-list {
     width: 100%;
+  }
+
+  hr {
+    display: none;
   }
 }
 

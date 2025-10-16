@@ -115,10 +115,9 @@ button:focus {
   width: 24px;
   height: 24px;
   fill: var(--bg-cream);
+  transition: fill 400ms ease-in-out;
 }
-.home-btn.icon {
-  fill: var(--bg-cream);
-}
+
 .app-name {
   font-size: 22px;
 }
@@ -127,11 +126,7 @@ button:focus {
   border: none;
 }
 
-.home-btn.icon {
-  fill: var(--bg-cream);
-}
-
-.icon:hover {
+.home-btn .icon:hover {
   fill: var(--accent-light);
 }
 
