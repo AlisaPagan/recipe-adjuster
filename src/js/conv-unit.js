@@ -23,7 +23,8 @@ const ingredientDensity = document.querySelector("#ingredients");
 
 const roundingBtns = document.querySelectorAll(".option-button");
 
-const convertBtn = document.querySelectorAll(".result-btn");
+const convertUnitsBtn = document.querySelector(".result-btn-units");
+const convertTempsBtn = document.querySelector(".result-btn-temps");
 const clearBtn = document.querySelectorAll(".clear-btn");
 
 const tempInput = document.querySelector("#degrees");
@@ -33,13 +34,40 @@ const toTemp = document.querySelector("#to-temp");
 
 const resultCard = document.querySelector(".result");
 const resultSubtitle = document.querySelector(".result-placeholder");
-const resultDataWContainer = document.querySelector(".result-wrapper");
+const resultDataContainer = document.querySelector(".result-wrapper");
 
 // ===== EVENT LISTENERS =====
 //inputs
 numConvertFrom.addEventListener("keydown", validateNumInputs);
 tempInput.addEventListener("keydown", validateNumInputs);
-convertBtn.forEach((button) => button.addEventListener("click", convertUnits));
+
+convertUnitsBtn.addEventListener("click", handleUnitConversion);
+
+function handleUnitConversion(event) {
+  event.preventDefault();
+
+  let chosenUnitSet;
+  const amount = Number(numConvertFrom.value);
+  const from = fromUnit.value;
+  const to = toUnit.value;
+  const ingredient = ingredientDensity.value;
+
+  if (from in volumeUnits) {
+    chosenUnitSet = volumeUnits;
+  } else if (from in weightUnits) {
+    chosenUnitSet = weightUnits;
+  }
+  const result = convertUnits(amount, from, to, chosenUnitSet, ingredient);
+
+  if (result === NaN || result === undefined) {
+    return;
+  }
+  resultSubtitle.remove();
+  const convertedUnitsList = document.createElement("p");
+  convertedUnitsList.classList.add("descr");
+  convertedUnitsList.textContent = `${amount} ${from} of ${ingredient} equals to ${result} ${to}`;
+  resultDataContainer.append(convertedUnitsList);
+}
 
 //buttons
 clearBtn.forEach((button) => {
@@ -100,16 +128,23 @@ function roundUnits(obj) {
   for (const [unit, factor] of Object.entries(obj)) {
     roundedUnits[unit] = Math.round(factor * 100) / 100;
   }
+  return roundedUnits;
 }
 
 // Convert units
-function convertUnits(numConvertFrom, fromUnit, toUnit, unitSet, ingredient) {
-  const fromFactor = unitSet[fromUnit];
-  const toFactor = unitSet[toUnit];
+function convertUnits(
+  numConvertFrom,
+  fromUnit,
+  toUnit,
+  chosenUnitSet,
+  ingredient
+) {
+  const fromFactor = chosenUnitSet[fromUnit];
+  const toFactor = chosenUnitSet[toUnit];
   const conversionResult = numConvertFrom * (fromFactor / toFactor);
   const densityFactor = density[ingredient];
 
-  if (fromUnit in unitSet && toUnit in unitSet) {
+  if (fromUnit in chosenUnitSet && toUnit in chosenUnitSet) {
     return Math.round(conversionResult * 100) / 100;
   }
   //
@@ -137,5 +172,3 @@ function convertUnits(numConvertFrom, fromUnit, toUnit, unitSet, ingredient) {
     return Math.round(convertedValue * 100) / 100;
   }
 }
-
-console.log(convertUnits(250, "ml", "g", volumeUnits, "water")); // expect ~473.18

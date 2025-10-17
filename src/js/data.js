@@ -5,7 +5,7 @@ export const volumeUnits = {
   l: 1000,
   tsp: 4.92892,
   tbsp: 14.7868,
-  cup: 240,
+  cup: 236.588,
   flOz: 29.5735,
   pt: 473.176,
   qrt: 946.353,

@@ -121,7 +121,8 @@
   max-width: 100%;
 }
 
-.result-btn,
+.result-btn-units,
+.result-btn-temps,
 .clear-btn {
   font-weight: 500;
   width: 100%;
@@ -177,7 +178,8 @@ optgroup {
     justify-content: space-between;
     flex-direction: row;
   }
-  .result-btn,
+  .result-btn-units,
+  .result-btn-temps,
   .clear-btn {
     width: 50%;
   }
