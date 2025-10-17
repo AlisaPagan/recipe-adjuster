@@ -3,6 +3,14 @@
 
 import { validateNumInputs } from "./functions.js";
 
+// data
+
+import { density, volumeUnits, weightUnits } from "./data.js";
+
+// PREP DATA
+const roundedVolume = roundUnits(volumeUnits);
+const roundedWeight = roundUnits(weightUnits);
+
 // ===== GLOBAL ELEMENTS =====
 const cardsWrappers = document.querySelectorAll(".convert-units-form-wrap");
 
@@ -31,6 +39,7 @@ const resultDataWContainer = document.querySelector(".result-wrapper");
 //inputs
 numConvertFrom.addEventListener("keydown", validateNumInputs);
 tempInput.addEventListener("keydown", validateNumInputs);
+convertBtn.forEach((button) => button.addEventListener("click", convertUnits));
 
 //buttons
 clearBtn.forEach((button) => {
@@ -82,3 +91,51 @@ function clearCardOnSwitch(event) {
 
   activeCard = currentCard;
 }
+
+// ===== UNIT CONVERSION =====
+
+// Round units
+function roundUnits(obj) {
+  let roundedUnits = {};
+  for (const [unit, factor] of Object.entries(obj)) {
+    roundedUnits[unit] = Math.round(factor * 100) / 100;
+  }
+}
+
+// Convert units
+function convertUnits(numConvertFrom, fromUnit, toUnit, unitSet, ingredient) {
+  const fromFactor = unitSet[fromUnit];
+  const toFactor = unitSet[toUnit];
+  const conversionResult = numConvertFrom * (fromFactor / toFactor);
+  const densityFactor = density[ingredient];
+
+  if (fromUnit in unitSet && toUnit in unitSet) {
+    return Math.round(conversionResult * 100) / 100;
+  }
+  //
+  else if (fromUnit in volumeUnits && toUnit in weightUnits) {
+    const fromFactor = volumeUnits[fromUnit];
+    const toFactor = weightUnits[toUnit];
+
+    const ml = numConvertFrom * fromFactor;
+    const gram = ml * densityFactor;
+
+    const convertedValue = gram / toFactor;
+
+    return Math.round(convertedValue * 100) / 100;
+  }
+  //
+  else if (fromUnit in weightUnits && toUnit in volumeUnits) {
+    const fromFactor = weightUnits[fromUnit];
+    const toFactor = volumeUnits[toUnit];
+
+    const gram = numConvertFrom * fromFactor;
+    const ml = gram / densityFactor;
+
+    const convertedValue = ml / toFactor;
+
+    return Math.round(convertedValue * 100) / 100;
+  }
+}
+
+console.log(convertUnits(250, "ml", "g", volumeUnits, "water")); // expect ~473.18

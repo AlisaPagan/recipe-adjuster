@@ -17,7 +17,6 @@ const textInputs = document.querySelectorAll('input[type="text"]');
 
 const placeholderText = document.querySelector(".empty-card-message");
 const updatedRecipeList = document.querySelector(".updated-recipe-list");
-const originalRecipeList = document.querySelector(".original-recipe-list");
 
 const tabButtons = document.querySelectorAll(".tablink");
 const tabSections = document.querySelectorAll(".recipe-scale");
