@@ -43,6 +43,7 @@ tempInput.addEventListener("keydown", validateNumInputs);
 
 convertUnitsBtn.addEventListener("click", handleUnitConversion);
 
+// Conversion handler
 function handleUnitConversion(event) {
   event.preventDefault();
 
@@ -52,6 +53,15 @@ function handleUnitConversion(event) {
   const to = toUnit.value;
   const ingredient = ingredientDensity.value;
 
+  if (amount === "0" || !amount) {
+    resultSubtitle.remove();
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("error-message");
+    errorMessage.textContent = "Please input the amount you wish to convert!";
+    resultDataContainer.append(errorMessage);
+    return;
+  }
+
   if (from in volumeUnits) {
     chosenUnitSet = volumeUnits;
   } else if (from in weightUnits) {
@@ -59,7 +69,7 @@ function handleUnitConversion(event) {
   }
   const result = convertUnits(amount, from, to, chosenUnitSet, ingredient);
 
-  if (result === NaN || result === undefined) {
+  if (isNaN(result) || result === undefined) {
     return;
   }
   resultSubtitle.remove();
@@ -139,6 +149,7 @@ function convertUnits(
   chosenUnitSet,
   ingredient
 ) {
+  //
   const fromFactor = chosenUnitSet[fromUnit];
   const toFactor = chosenUnitSet[toUnit];
   const conversionResult = numConvertFrom * (fromFactor / toFactor);
