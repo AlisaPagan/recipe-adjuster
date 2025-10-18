@@ -141,13 +141,14 @@ function clearAllInputs(event) {
 
   // ==== Clear output & errors ====
   updatedRecipeList
-    .querySelectorAll(".updated-ingredient, .error-message")
+    .querySelectorAll(".updated-ingredient")
     .forEach((el) => el.remove());
 
   resetRadio();
   // ==== Restore placeholder ====
-  updatedRecipeList.append(placeholderText);
 
+  const tabName = activeTab.id;
+  updateOutputCard(tabName);
   updateDeleteButtons();
 }
 
@@ -199,7 +200,7 @@ function scaleRecipe(event) {
 
   // ==== Reset previous list + errors ====
   updatedRecipeList
-    .querySelectorAll(".updated-ingredient, .error-message")
+    .querySelectorAll(".updated-ingredient")
     .forEach((el) => el.remove());
 
   const name = activeTab.querySelector(".ingr-name").value;
@@ -214,22 +215,15 @@ function scaleRecipe(event) {
       baseQty.value === "0" ||
       desiredQty.value === "0"
     ) {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent = "Please input your base and desired yield!";
-      updatedRecipeList.append(errorMessage);
+      placeholderText.textContent = "Please input your base and desired yield!";
       return;
     }
 
     // ==== Validate ingredients ====
     if (!name || !qty) {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent =
+      placeholderText.textContent =
         "Please input names and quantity of ingredients!";
-      updatedRecipeList.append(errorMessage);
+
       return;
     }
 
@@ -257,22 +251,15 @@ function scaleRecipe(event) {
   else if (activeTab.id === "key-ingr") {
     const keyIngredient = activeTab.querySelector("#key");
     if (!keyIngredient.value || keyIngredient.value === "0") {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent =
+      placeholderText.textContent =
         "Please input the amount of your key ingredient!";
-      updatedRecipeList.append(errorMessage);
       return;
     }
 
     if (!name || !qty) {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent =
+      placeholderText.textContent =
         "Please input names and quantity of the original recipe ingredients!";
-      updatedRecipeList.append(errorMessage);
+
       return;
     }
 
@@ -280,12 +267,9 @@ function scaleRecipe(event) {
       "input[name='radio-key']:checked"
     );
     if (!keyRadioBtn) {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent =
+      placeholderText.textContent =
         "Please select the key ingredient in the original recipe!";
-      updatedRecipeList.append(errorMessage);
+
       return;
     }
 
@@ -295,20 +279,13 @@ function scaleRecipe(event) {
     const ingrUnit = group.querySelector(".select").value;
 
     if (ingrQty === "0" || !ingrQty) {
-      placeholderText.remove();
-      const errorMessage = document.createElement("p");
-      errorMessage.classList.add("error-message");
-      errorMessage.textContent =
+      placeholderText.textContent =
         "Please enter the valid amount of the key ingredient in the original recipe! (can't be 0)";
-      updatedRecipeList.append(errorMessage);
+
       return;
     }
 
     const keyScaleFactor = Number(keyIngredient.value) / Number(ingrQty);
-
-    const originalRecipeTitle = document.createElement("h3");
-    originalRecipeTitle.classList.add("list-heading");
-    originalRecipeTitle.textContent = "Your original recipe";
 
     const ingrGroups = activeTab.querySelectorAll(".ingredient-group");
     ingrGroups.forEach((group) => {

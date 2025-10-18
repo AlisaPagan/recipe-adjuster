@@ -54,11 +54,17 @@ function handleUnitConversion(event) {
   const ingredient = ingredientDensity.value;
 
   if (amount === "0" || !amount) {
-    resultSubtitle.remove();
-    const errorMessage = document.createElement("p");
-    errorMessage.classList.add("error-message");
-    errorMessage.textContent = "Please input the amount you wish to convert!";
-    resultDataContainer.append(errorMessage);
+    resultSubtitle.textContent = "Please input the amount you wish to convert!";
+    return;
+  }
+  //
+  else if (from === "" || to === "") {
+    resultSubtitle.textContent = "Please select the units you wish to convert!";
+    return;
+  }
+  //
+  else if (from === to) {
+    resultSubtitle.textContent = "Same unit is selected!";
     return;
   }
 
@@ -72,11 +78,9 @@ function handleUnitConversion(event) {
   if (isNaN(result) || result === undefined) {
     return;
   }
-  resultSubtitle.remove();
-  const convertedUnitsList = document.createElement("p");
-  convertedUnitsList.classList.add("descr");
-  convertedUnitsList.textContent = `${amount} ${from} of ${ingredient} equals to ${result} ${to}`;
-  resultDataContainer.append(convertedUnitsList);
+
+  resultSubtitle.textContent = `${amount} ${from} of ${ingredient} equals ${result} ${to}`;
+  // resultDataContainer.append(convertedUnitsList);
 }
 
 //buttons
@@ -110,12 +114,16 @@ function clearAllInputs(eventOnCard) {
 
   if (!card) return;
 
-  //reset inputs
+  // reset inputs
   const inputs = card.querySelectorAll("input, select");
   inputs.forEach((input) => {
     input.value = "";
     if (input.tagName === "SELECT") input.selectedIndex = 0;
   });
+
+  // reset result card
+  resultSubtitle.textContent =
+    "Please, input your values, select units and conditions and click convert!";
 }
 
 // ===== CLEAR THE CARD ON FOCUS SWITCH =====
