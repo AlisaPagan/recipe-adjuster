@@ -11,11 +11,15 @@
 .convert-units-form-wrap {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 600px;
   gap: 24px;
   background-color: var(--white);
   padding: 15px;
   border-radius: 20px;
   box-shadow: 0px 2px 6px rgba(26, 3, 3, 0.4);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .convert-units-form-wrap .form,
@@ -62,7 +66,8 @@
 .list-heading:focus .icon {
   fill: var(--accent-hover);
 }
-.convert-units-form-wrap.open .options .list-heading {
+.convert-units-form-wrap.open .options .list-heading,
+.convert-units-form-wrap.open .result .list-heading {
   display: block;
   text-align: center;
   color: inherit;
@@ -146,6 +151,13 @@ optgroup {
   background-color: rgba(242, 170, 107, 80%);
   color: var(--text-brown);
 }
+
+.result .list-heading {
+  display: block;
+  text-align: center;
+  color: inherit;
+}
+
 @media screen and (min-width: 0) and (max-width: 320px) {
   .section-wrapper {
     gap: 30px;
@@ -203,11 +215,16 @@ optgroup {
 
   .convert-cards-wrapper {
     gap: 45px;
+    flex-direction: row;
   }
 
   .result {
     width: 50%;
     align-self: center;
+  }
+
+  .convert-units-form-wrap {
+    max-width: 100%;
   }
 
   .convert-units-form-wrap .form,
@@ -216,10 +233,6 @@ optgroup {
     max-height: fit-content;
     overflow: hidden;
     transition: max-height 400ms ease-in-out;
-  }
-
-  .convert-cards-wrapper {
-    flex-direction: row;
   }
 
   .units,

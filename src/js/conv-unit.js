@@ -5,7 +5,15 @@ import { validateNumInputs } from "./functions.js";
 
 // data
 
-import { density, volumeUnits, weightUnits } from "./data.js";
+import {
+  density,
+  volumeUnits,
+  weightUnits,
+  unitNames,
+  ingredientNames,
+} from "./data.js";
+
+// names
 
 // PREP DATA
 const roundedVolume = roundUnits(volumeUnits);
@@ -32,9 +40,7 @@ const tempInput = document.querySelector("#degrees");
 const fromTemp = document.querySelector("#from-temp");
 const toTemp = document.querySelector("#to-temp");
 
-const resultCard = document.querySelector(".result");
 const resultSubtitle = document.querySelector(".result-placeholder");
-const resultDataContainer = document.querySelector(".result-wrapper");
 
 // ===== EVENT LISTENERS =====
 //inputs
@@ -43,7 +49,7 @@ tempInput.addEventListener("keydown", validateNumInputs);
 
 convertUnitsBtn.addEventListener("click", handleUnitConversion);
 
-// Conversion handler
+// ===== CONVERSION HANDLER =====
 function handleUnitConversion(event) {
   event.preventDefault();
 
@@ -53,7 +59,7 @@ function handleUnitConversion(event) {
   const to = toUnit.value;
   const ingredient = ingredientDensity.value;
 
-  if (amount === "0" || !amount) {
+  if (!amount) {
     resultSubtitle.textContent = "Please input the amount you wish to convert!";
     return;
   }
@@ -74,13 +80,19 @@ function handleUnitConversion(event) {
     chosenUnitSet = weightUnits;
   }
   const result = convertUnits(amount, from, to, chosenUnitSet, ingredient);
+  const formattedResultText = cleanUpOutput(
+    from,
+    to,
+    ingredient,
+    amount,
+    result
+  );
 
   if (isNaN(result) || result === undefined) {
     return;
   }
 
-  resultSubtitle.textContent = `${amount} ${from} of ${ingredient} equals ${result} ${to}`;
-  // resultDataContainer.append(convertedUnitsList);
+  resultSubtitle.textContent = formattedResultText;
 }
 
 //buttons
@@ -190,4 +202,31 @@ function convertUnits(
 
     return Math.round(convertedValue * 100) / 100;
   }
+}
+
+// ===== RESULT OUTPUT CLEAN-UP =====
+
+function cleanUpOutput(from, to, ingredient, amount, result) {
+  const fromName = unitNames[from]?.singular || from;
+  const toName = unitNames[to]?.singular || to;
+  const ingredientName = ingredientNames[ingredient] || ingredient;
+
+  let fromFinalName;
+  let toFinalName;
+
+  if (amount <= 1) {
+    fromFinalName = fromName;
+  } else {
+    fromFinalName = unitNames[from]?.plural || `${from}s`;
+  }
+
+  if (result <= 1) {
+    toFinalName = toName;
+  } else {
+    toFinalName = unitNames[to]?.plural || `${to}s`;
+  }
+
+  const formattedOutput = `${amount} ${fromFinalName} of ${ingredientName} equals ${result} ${toFinalName}.`;
+
+  return formattedOutput;
 }
