@@ -1,4 +1,4 @@
-// ===== IMPORTS =====
+/////////////////////////// ===== IMPORTS =====
 // input validation
 
 import { validateNumInputs } from "./functions.js";
@@ -13,13 +13,11 @@ import {
   ingredientNames,
 } from "./data.js";
 
-// names
+/////////////////////////// ===== PREP DATA =====
+let activeCard = null;
+let currentRoundingMode = "none";
 
-// PREP DATA
-const roundedVolume = roundUnits(volumeUnits);
-const roundedWeight = roundUnits(weightUnits);
-
-// ===== GLOBAL ELEMENTS =====
+/////////////////////////// ===== GLOBAL ELEMENTS =====
 const cardsWrappers = document.querySelectorAll(".convert-units-form-wrap");
 
 const numConvertFrom = document.querySelector("#unit-to-conv");
@@ -42,14 +40,45 @@ const toTemp = document.querySelector("#to-temp");
 
 const resultSubtitle = document.querySelector(".result-placeholder");
 
-// ===== EVENT LISTENERS =====
+/////////////////////////// ===== EVENT LISTENERS =====
 //inputs
 numConvertFrom.addEventListener("keydown", validateNumInputs);
 tempInput.addEventListener("keydown", validateNumInputs);
 
 convertUnitsBtn.addEventListener("click", handleUnitConversion);
 
-// ===== CONVERSION HANDLER =====
+roundingBtns.forEach((button) =>
+  button.addEventListener("click", handleRounding)
+);
+
+//buttons
+clearBtn.forEach((button) => {
+  button.addEventListener("click", clearAllInputs);
+});
+//wrappers
+cardsWrappers.forEach((card) =>
+  card.addEventListener("focusin", clearCardOnSwitch)
+);
+
+/////////////////////////// ===== EVENTS HANDLERS =====
+
+// ===== rounding buttons hangler =====
+function handleRounding(event) {
+  const mode = event.currentTarget.dataset.mode;
+  currentRoundingMode = mode;
+
+  if (event.currentTarget.classList.contains("active")) {
+    event.currentTarget.classList.remove("active");
+    currentRoundingMode = "none";
+    return;
+  } else {
+    event.currentTarget.classList.contains("active");
+    roundingBtns.forEach((button) => button.classList.remove("active"));
+    event.currentTarget.classList.add("active");
+  }
+}
+
+// ===== unit conversion button hangler =====
 function handleUnitConversion(event) {
   event.preventDefault();
 
@@ -79,13 +108,17 @@ function handleUnitConversion(event) {
   } else if (from in weightUnits) {
     chosenUnitSet = weightUnits;
   }
+  // conversion
   const result = convertUnits(amount, from, to, chosenUnitSet, ingredient);
+  //rounding
+  const roundedResult = applyRounding(result);
+  // format output
   const formattedResultText = cleanUpOutput(
     from,
     to,
     ingredient,
     amount,
-    result
+    roundedResult
   );
 
   if (isNaN(result) || result === undefined) {
@@ -95,16 +128,9 @@ function handleUnitConversion(event) {
   resultSubtitle.textContent = formattedResultText;
 }
 
-//buttons
-clearBtn.forEach((button) => {
-  button.addEventListener("click", clearAllInputs);
-});
-//wrappers
-cardsWrappers.forEach((card) =>
-  card.addEventListener("focusin", clearCardOnSwitch)
-);
+/////////////////////////// ===== UTILITIES =====
 
-// ===== OPEN/COLLAPSE CARDS =====
+// ===== open/collapse cards =====
 cardsWrappers.forEach((wrapper) => {
   const heading = wrapper.querySelector(".list-heading");
   const icon = wrapper.querySelector(".icon");
@@ -114,7 +140,7 @@ cardsWrappers.forEach((wrapper) => {
   });
 });
 
-// ===== CLEAR INPUTS, SELECTS =====
+// ===== clear inputs & selects =====
 function clearAllInputs(eventOnCard) {
   let card;
   if (eventOnCard && eventOnCard.preventDefault) {
@@ -133,13 +159,15 @@ function clearAllInputs(eventOnCard) {
     if (input.tagName === "SELECT") input.selectedIndex = 0;
   });
 
+  roundingBtns.forEach((button) => button.classList.remove("active"));
+
   // reset result card
   resultSubtitle.textContent =
     "Please, input your values, select units and conditions and click convert!";
 }
 
-// ===== CLEAR THE CARD ON FOCUS SWITCH =====
-let activeCard = null;
+// ===== clear the card on focus switch =====
+
 function clearCardOnSwitch(event) {
   const currentCard = event.currentTarget;
 
@@ -150,7 +178,7 @@ function clearCardOnSwitch(event) {
   activeCard = currentCard;
 }
 
-// ===== UNIT CONVERSION =====
+// ===== unit conversion =====
 
 // Round units
 function roundUnits(obj) {
@@ -204,7 +232,7 @@ function convertUnits(
   }
 }
 
-// ===== RESULT OUTPUT CLEAN-UP =====
+// ===== result output clean-up =====
 
 function cleanUpOutput(from, to, ingredient, amount, result) {
   const fromName = unitNames[from]?.singular || from;
@@ -229,4 +257,18 @@ function cleanUpOutput(from, to, ingredient, amount, result) {
   const formattedOutput = `${amount} ${fromFinalName} of ${ingredientName} equals ${result} ${toFinalName}.`;
 
   return formattedOutput;
+}
+
+// ===== rounding buttons =====
+
+function applyRounding(result) {
+  if (currentRoundingMode === "none") {
+    return result;
+  } else if (currentRoundingMode === "half") {
+    return Math.round(result * 2) / 2;
+  } else if (currentRoundingMode === "whole") {
+    return Math.round(result);
+  } else {
+    return result;
+  }
 }
