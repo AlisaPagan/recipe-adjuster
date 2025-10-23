@@ -45,13 +45,14 @@ const resultSubtitle = document.querySelector(".result-placeholder");
 numConvertFrom.addEventListener("keydown", validateNumInputs);
 tempInput.addEventListener("keydown", validateNumInputs);
 
+//buttons
 convertUnitsBtn.addEventListener("click", handleUnitConversion);
+convertTempsBtn.addEventListener("click", handleTempConversion);
 
 roundingBtns.forEach((button) =>
   button.addEventListener("click", handleRounding)
 );
 
-//buttons
 clearBtn.forEach((button) => {
   button.addEventListener("click", clearAllInputs);
 });
@@ -62,7 +63,7 @@ cardsWrappers.forEach((card) =>
 
 /////////////////////////// ===== EVENTS HANDLERS =====
 
-// ===== rounding buttons hangler =====
+// ===== Rounding buttons hangler =====
 function handleRounding(event) {
   const mode = event.currentTarget.dataset.mode;
   currentRoundingMode = mode;
@@ -78,7 +79,7 @@ function handleRounding(event) {
   }
 }
 
-// ===== unit conversion button hangler =====
+// ===== Unit conversion button hangler =====
 function handleUnitConversion(event) {
   event.preventDefault();
 
@@ -127,10 +128,42 @@ function handleUnitConversion(event) {
 
   resultSubtitle.textContent = formattedResultText;
 }
+// ===== Temps conversion button hangler =====
+function handleTempConversion(event) {
+  event.preventDefault();
+
+  const temperature = Number(tempInput.value);
+  const from = fromTemp.value;
+  const to = toTemp.value;
+
+  if (!temperature) {
+    resultSubtitle.textContent =
+      "Please input the temperature you wish to convert!";
+    return;
+  }
+  //
+  else if (from === "" || to === "") {
+    resultSubtitle.textContent = "Please select the scale you wish to convert!";
+    return;
+  }
+  //
+  else if (from === to) {
+    resultSubtitle.textContent = "Same scale is selected!";
+    return;
+  }
+
+  const result = convertTemps(temperature, from, to);
+
+  if (isNaN(result) || result === undefined) {
+    return;
+  }
+
+  resultSubtitle.textContent = `${temperature} ${from} equals ${result} ${to}.`;
+}
 
 /////////////////////////// ===== UTILITIES =====
 
-// ===== open/collapse cards =====
+// ===== Open/collapse cards =====
 cardsWrappers.forEach((wrapper) => {
   const heading = wrapper.querySelector(".list-heading");
   const icon = wrapper.querySelector(".icon");
@@ -140,7 +173,7 @@ cardsWrappers.forEach((wrapper) => {
   });
 });
 
-// ===== clear inputs & selects =====
+// ===== Clear inputs & selects =====
 function clearAllInputs(eventOnCard) {
   let card;
   if (eventOnCard && eventOnCard.preventDefault) {
@@ -166,7 +199,7 @@ function clearAllInputs(eventOnCard) {
     "Please, input your values, select units and conditions and click convert!";
 }
 
-// ===== clear the card on focus switch =====
+// ===== Clear the card on focus switch =====
 
 function clearCardOnSwitch(event) {
   const currentCard = event.currentTarget;
@@ -178,16 +211,7 @@ function clearCardOnSwitch(event) {
   activeCard = currentCard;
 }
 
-// ===== unit conversion =====
-
-// Round units
-function roundUnits(obj) {
-  let roundedUnits = {};
-  for (const [unit, factor] of Object.entries(obj)) {
-    roundedUnits[unit] = Math.round(factor * 100) / 100;
-  }
-  return roundedUnits;
-}
+// ===== Unit conversion =====
 
 // Convert units
 function convertUnits(
@@ -232,7 +256,7 @@ function convertUnits(
   }
 }
 
-// ===== result output clean-up =====
+// ===== Result output clean-up =====
 
 function cleanUpOutput(from, to, ingredient, amount, result) {
   const fromName = unitNames[from]?.singular || from;
@@ -259,7 +283,7 @@ function cleanUpOutput(from, to, ingredient, amount, result) {
   return formattedOutput;
 }
 
-// ===== rounding buttons =====
+// ===== Rounding buttons =====
 
 function applyRounding(result) {
   if (currentRoundingMode === "none") {
@@ -271,4 +295,20 @@ function applyRounding(result) {
   } else {
     return result;
   }
+}
+
+// ===== Temperature conversion =====
+
+function convertTemps(tempInput, fromTemp, toTemp) {
+  let convertedResult;
+  if (fromTemp === "c" && toTemp === "f") {
+    convertedResult = fromTemp * (9 / 5) + 32;
+    const roundedConvertedResult = Math.round(convertedResult * 100) / 100;
+  } else if (fromTemp === "f" && toTemp === "c") {
+    convertedResult = (fromTemp - 32) * (5 / 9);
+    const roundedConvertedResult = Math.round(convertedResult * 100) / 100;
+  } else {
+    return tempInput;
+  }
+  return roundedConvertedResult;
 }

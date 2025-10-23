@@ -3,6 +3,10 @@ export function validateNumInputs(event) {
     return;
   }
 
+  if (event.key === "-" && event.target.id === "degrees") {
+    return;
+  }
+
   if (
     !/[0-9]/.test(event.key) &&
     ![
