@@ -1,9 +1,9 @@
-// ===== IMPORTS =====
+/////////////////////////// ===== IMPORTS =====
 // input validation
 
 import { validateNumInputs } from "./functions.js";
 
-// ===== GLOBAL ELEMENTS =====
+/////////////////////////// ===== GLOBAL ELEMENTS =====
 const baseQty = document.querySelector("#base");
 const desiredQty = document.querySelector("#desired");
 
@@ -21,7 +21,7 @@ const updatedRecipeList = document.querySelector(".updated-recipe-list");
 const tabButtons = document.querySelectorAll(".tablink");
 const tabSections = document.querySelectorAll(".recipe-scale");
 
-// ===== INPUT VALIDATION LISTENERS =====
+/////////////////////////// ===== INPUT VALIDATION LISTENERS =====
 numInputs.forEach((input) =>
   input.addEventListener("keydown", validateNumInputs)
 );
@@ -29,11 +29,11 @@ textInputs.forEach((input) =>
   input.addEventListener("input", validateTextInput)
 );
 
-// ===== INITIALIZE =====
+/////////////////////////// ===== INITIALIZE =====
 updateDeleteButtons();
 resetRadio();
 
-// ===== SWITCH TABS =====
+/////////////////////////// ===== SWITCH TABS =====
 tabButtons.forEach((button) => {
   button.addEventListener("click", switchTabs);
 });
@@ -59,7 +59,7 @@ function switchTabs(event) {
   updateDeleteButtons();
 }
 
-// ===== UPDATE OUTPUT CARD DEFAULT TEXT =====
+/////////////////////////// ===== UPDATE OUTPUT CARD DEFAULT TEXT =====
 function updateOutputCard(tabName) {
   if (tabName === "key-ingr") {
     placeholderText.textContent =
@@ -70,7 +70,7 @@ function updateOutputCard(tabName) {
   }
 }
 
-// ===== ADD NEW INGREDIENT LINE =====
+/////////////////////////// ===== ADD NEW INGREDIENT LINE =====
 addIngredientBtn.forEach((button) =>
   button.addEventListener("click", addNewIngredient)
 );
@@ -120,7 +120,7 @@ function addNewIngredient(event) {
   updateIngredientLabels(activeTab);
 }
 
-// ===== CLEAR ALL INPUTS =====
+/////////////////////////// ===== CLEAR ALL INPUTS =====
 clearAllBtn.forEach((button) =>
   button.addEventListener("click", clearAllInputs)
 );
@@ -152,7 +152,7 @@ function clearAllInputs(event) {
   updateDeleteButtons();
 }
 
-// ===== REMOVE INGREDIENT LINE =====
+/////////////////////////// ===== REMOVE INGREDIENT LINE =====
 function removeIngredient(event) {
   event.preventDefault();
   const activeTab = event.target.closest(".recipe-scale");
@@ -162,7 +162,7 @@ function removeIngredient(event) {
   updateIngredientLabels(activeTab);
 }
 
-// ===== UPDATE DELETE BUTTON STATE =====
+/////////////////////////// ===== UPDATE DELETE BUTTON STATE =====
 function updateDeleteButtons() {
   const activeTab = document.querySelector(".recipe-scale.active");
   if (!activeTab) return;
@@ -174,13 +174,13 @@ function updateDeleteButtons() {
   deleteButtons.forEach((btn) => (btn.disabled = disable));
 }
 
-// ===== INPUT VALIDATION =====
+/////////////////////////// ===== INPUT VALIDATION =====
 function validateTextInput(event) {
   const input = event.target;
   input.value = input.value.replace(/[0-9]/g, "");
 }
 
-// ===== INGREDIENT LABEL NUMBERS =====
+/////////////////////////// ===== INGREDIENT LABEL NUMBERS =====
 function updateIngredientLabels(activeTab) {
   const ingredientGroups = activeTab.querySelectorAll(".ingredient-group");
   ingredientGroups.forEach((group, index) => {
@@ -189,7 +189,7 @@ function updateIngredientLabels(activeTab) {
   });
 }
 
-// ===== RECIPE SCALING =====
+/////////////////////////// ===== RECIPE SCALING =====
 scaleRecipeButton.forEach((button) =>
   button.addEventListener("click", scaleRecipe)
 );
@@ -206,7 +206,7 @@ function scaleRecipe(event) {
   const name = activeTab.querySelector(".ingr-name").value;
   const qty = activeTab.querySelector(".ingr-qty").value;
 
-  // ==== SCALING BY PORTION ====
+  /////////////////////////// ==== SCALING BY PORTION ====
   if (activeTab.id === "portion") {
     // ==== Validate base & desired yield ====
     if (
@@ -247,7 +247,7 @@ function scaleRecipe(event) {
     });
   }
 
-  // ==== SCALING BY KEY INGREDIENT ====
+  /////////////////////////// ==== SCALING BY KEY INGREDIENT ====
   else if (activeTab.id === "key-ingr") {
     const keyIngredient = activeTab.querySelector("#key");
     if (!keyIngredient.value || keyIngredient.value === "0") {

@@ -136,7 +136,7 @@ function handleTempConversion(event) {
   const from = fromTemp.value;
   const to = toTemp.value;
 
-  if (!temperature) {
+  if (isNaN(temperature)) {
     resultSubtitle.textContent =
       "Please input the temperature you wish to convert!";
     return;
@@ -158,7 +158,9 @@ function handleTempConversion(event) {
     return;
   }
 
-  resultSubtitle.textContent = `${temperature} ${from} equals ${result} ${to}.`;
+  resultSubtitle.textContent = `${temperature}${cleanUpTempOutput(
+    from
+  )}  equals ${result}${cleanUpTempOutput(to)}.`;
 }
 
 /////////////////////////// ===== UTILITIES =====
@@ -256,7 +258,7 @@ function convertUnits(
   }
 }
 
-// ===== Result output clean-up =====
+// ===== Units result output clean-up =====
 
 function cleanUpOutput(from, to, ingredient, amount, result) {
   const fromName = unitNames[from]?.singular || from;
@@ -302,13 +304,24 @@ function applyRounding(result) {
 function convertTemps(tempInput, fromTemp, toTemp) {
   let convertedResult;
   if (fromTemp === "c" && toTemp === "f") {
-    convertedResult = fromTemp * (9 / 5) + 32;
+    convertedResult = tempInput * (9 / 5) + 32;
     const roundedConvertedResult = Math.round(convertedResult * 100) / 100;
+    return roundedConvertedResult;
   } else if (fromTemp === "f" && toTemp === "c") {
-    convertedResult = (fromTemp - 32) * (5 / 9);
+    convertedResult = (tempInput - 32) * (5 / 9);
     const roundedConvertedResult = Math.round(convertedResult * 100) / 100;
+    return roundedConvertedResult;
   } else {
     return tempInput;
   }
-  return roundedConvertedResult;
+}
+
+// ===== Temps result output clean-up =====
+
+function cleanUpTempOutput(scale) {
+  if (scale === "c") {
+    return "°C";
+  } else if (scale === "f") {
+    return "°F";
+  }
 }
